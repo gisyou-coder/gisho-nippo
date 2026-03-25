@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="技匠日報">
+<meta name="theme-color" content="#0f1117">
+<title>技匠 作業日報管理</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Noto Sans JP','Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif;background:#0f1117;min-height:100vh;color:#e8eaf0;padding-bottom:env(safe-area-inset-bottom)}
+input,textarea,button,select{font-family:inherit}
+.header{background:linear-gradient(135deg,#1a2236 0%,#0f1117 100%);border-bottom:1px solid #2a3a55;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.header-sub{font-size:10px;color:#5b7fa6;letter-spacing:3px;text-transform:uppercase;margin-bottom:2px}
+.header-title{font-size:19px;font-weight:700;color:#c8deff}
+.header-date{font-size:11px;color:#4a6080}
+.tabs{display:flex;border-bottom:1px solid #1e2d44;background:#0d1320;position:sticky;top:57px;z-index:49}
+.tab-btn{flex:1;padding:11px 1px;background:none;border:none;cursor:pointer;font-size:10px;font-weight:400;border-bottom:2px solid transparent;color:#4a6080}
+.tab-btn.active{color:#7bb3ff;border-bottom:2px solid #7bb3ff;font-weight:700}
+.content{padding:14px;max-width:700px;margin:0 auto}
+.field{margin-bottom:13px}
+.fl{font-size:11px;color:#5b7fa6;margin-bottom:5px;font-weight:600;letter-spacing:.5px;display:block}
+.inp{width:100%;padding:10px 12px;background:#0d1320;border:1px solid #2a3a55;border-radius:6px;color:#c8deff;font-size:14px;outline:none;-webkit-appearance:none;appearance:none}
+.inp:focus{border-color:#4a7ab0}
+.inp-sm{font-size:13px;padding:8px 10px}
+textarea.inp{resize:vertical;min-height:70px}
+.inp-r{text-align:right}
+.inp-c{text-align:center}
+.sel-wrap{display:flex;gap:6px;align-items:center}
+.sel{width:100%;padding:10px 12px;background:#0d1320;border:1px solid #2a3a55;border-radius:6px;color:#c8deff;font-size:14px;outline:none;-webkit-appearance:none;appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235b7fa6' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+.sel:focus{border-color:#4a7ab0}
+.sel option{background:#1a2a3e;color:#c8deff}
+.sel-sm{font-size:13px;padding:8px 10px;padding-right:28px}
+.mbtn{padding:8px 10px;background:#1a2a3e;border:1px solid #2a3a55;border-radius:6px;color:#7aabda;font-size:11px;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.mbtn.on{background:#2a4060;border-color:#4a7ab0;color:#c8deff}
+.pr{display:flex;gap:7px;margin-bottom:6px;align-items:center}
+.pr .sel-wrap{flex:1}
+.ul{color:#5b7fa6;font-size:12px;white-space:nowrap}
+.sl{font-size:12px;color:#5b7fa6;margin-bottom:6px;margin-top:4px;font-weight:600}
+.ab{padding:6px 13px;background:none;border:1px dashed #2a4060;border-radius:5px;color:#4a6a8a;font-size:12px;cursor:pointer;margin-top:3px;margin-bottom:11px}
+.db{padding:4px 7px;background:none;border:none;color:#4a3050;cursor:pointer;font-size:15px;flex-shrink:0}
+.cs{margin-bottom:15px}
+.ch{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
+.chl{font-size:12px;color:#5b7fa6;font-weight:600}
+.cb{border-radius:8px;padding:11px}
+.cgh{display:grid;grid-template-columns:1fr 52px 76px 66px 26px;gap:5px;margin-bottom:5px}
+.cgh span{font-size:10px;color:#4a6080;text-align:center}
+.cgh span:first-child{text-align:left}
+.cgr{display:grid;grid-template-columns:1fr 52px 76px 66px 26px;gap:5px;margin-bottom:5px;align-items:center}
+.cst{font-size:12px;text-align:right;font-weight:600}
+.ctl{border-top-width:1px;border-top-style:solid;margin-top:9px;padding-top:7px;display:flex;justify-content:flex-end}
+.cpv{background:#131c2e;border:1px solid #1e3050;border-radius:8px;padding:10px 14px;margin-bottom:15px;display:flex;gap:14px;flex-wrap:wrap}
+.sbtn{flex:1;padding:13px;background:linear-gradient(135deg,#2a5caa,#1a3a7a);border:none;border-radius:8px;color:#c8deff;font-weight:700;font-size:14px;cursor:pointer}
+.xbtn{padding:13px 16px;background:#1e2d44;border:1px solid #2a3a55;border-radius:8px;color:#7a9ab0;font-size:13px;cursor:pointer}
+.br{display:flex;gap:10px}
+.mn{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}
+.mi{display:flex;align-items:center;gap:8px}
+.nb{padding:5px 14px;background:#131c2e;border:1px solid #1e3050;border-radius:5px;color:#5b7fa6;font-size:17px;cursor:pointer}
+.ml{color:#c8deff;font-weight:700;font-size:15px;min-width:80px;text-align:center}
+.csvb{padding:7px 13px;background:#1a3a1a;border:1px solid #2a5a2a;border-radius:6px;color:#7ada8a;font-size:12px;cursor:pointer}
+.sbar{background:#131c2e;border:1px solid #1e3050;border-radius:8px;padding:11px 15px;margin-bottom:15px;display:flex;gap:14px;flex-wrap:wrap}
+.stl{font-size:10px;color:#4a6080}
+.stv{font-size:15px;font-weight:700;color:#a0c8f0}
+.stv.sm{font-size:13px}
+.rc{background:#131c2e;border:1px solid #1e3050;border-radius:8px;margin-bottom:8px;overflow:hidden}
+.rch{padding:12px 14px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none}
+.rct{font-weight:700;color:#c8deff;font-size:13px}
+.rcs{font-size:11px;color:#4a6080;margin-top:2px}
+.rcr{display:flex;gap:6px;align-items:center}
+.rcc{font-size:11px;color:#7ada8a}
+.rca{color:#3a5070;font-size:14px}
+.rcb{border-top:1px solid #1a2a3e;padding:12px 14px;font-size:12px;color:#7a9ab0}
+.tr{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:8px}
+.tg{padding:2px 8px;border-radius:4px;font-size:11px}
+.db2{border-radius:6px;padding:8px 10px;margin-bottom:6px}
+.dbl{font-size:11px;font-weight:600;margin-bottom:4px}
+.dbi{display:flex;justify-content:space-between;font-size:11px;margin-bottom:2px}
+.dbt{margin-top:4px;padding-top:4px;text-align:right;font-weight:700;font-size:12px}
+.er2{display:flex;gap:12px;font-size:11px;color:#a0b060;margin-bottom:6px;flex-wrap:wrap}
+.tl2{font-size:12px;font-weight:700;color:#7ada8a;margin-bottom:8px}
+.cbs{display:flex;gap:8px;margin-top:4px}
+.eb{padding:6px 15px;background:#1a3a5a;border:1px solid #2a5a8a;border-radius:5px;color:#7aabda;font-size:12px;cursor:pointer}
+.dlb{padding:6px 15px;background:#3a1a1a;border:1px solid #6a2a2a;border-radius:5px;color:#da7a7a;font-size:12px;cursor:pointer}
+.sc{background:#131c2e;border:1px solid #1e3050;border-radius:8px;padding:13px 15px;margin-bottom:9px}
+.sn{font-weight:700;color:#c8deff;font-size:14px;margin-bottom:3px}
+.scl{font-size:11px;color:#5b7fa6;margin-bottom:7px}
+.ss{display:flex;gap:14px;flex-wrap:wrap}
+.mts{display:flex;gap:6px;margin-bottom:15px;flex-wrap:wrap}
+.mt{padding:7px 13px;border-radius:6px;font-size:12px;cursor:pointer;border:1px solid}
+.mt.on{background:#2a5caa;border-color:#5a8ce0;color:#c8deff}
+.mt.off{background:#131c2e;border-color:#1e3050;color:#5b7fa6}
+.mb2{background:#131c2e;border:1px solid #1e3050;border-radius:8px;padding:15px}
+.mar{display:flex;gap:8px;margin-bottom:13px;flex-wrap:wrap}
+.mab{padding:8px 15px;background:#2a5caa;border:none;border-radius:6px;color:#c8deff;font-size:13px;cursor:pointer;white-space:nowrap}
+.mi2{display:flex;align-items:center;padding:8px 10px;border-radius:6px;background:#0f1520;margin-bottom:4px;gap:6px}
+.mi2-name{flex:1;font-size:13px;color:#a0b8d0}
+.mi2-sub{font-size:11px;color:#5b7fa6;white-space:nowrap}
+.mi2-btns{display:flex;gap:4px;flex-shrink:0}
+.med{padding:4px 9px;background:#1a3050;border:1px solid #2a5a8a;border-radius:4px;color:#7aabda;font-size:11px;cursor:pointer}
+.md{background:none;border:none;color:#4a3050;cursor:pointer;font-size:15px;padding:4px 6px}
+.me{color:#3a5070;font-size:12px;text-align:center;padding:16px 0}
+.stt{color:#7bb3ff;font-weight:700;font-size:14px;margin-bottom:15px}
+.profit-card{background:#131c2e;border:1px solid #2a4a2a;border-radius:10px;padding:14px 16px;margin-bottom:12px}
+.profit-title{font-size:13px;font-weight:700;color:#c8deff;margin-bottom:10px}
+.profit-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.profit-item{background:#0d1520;border-radius:6px;padding:8px 10px}
+.profit-item.green{border-left:3px solid #4a8a6a}
+.profit-item.yellow{border-left:3px solid #8a7a3a}
+.profit-item.red{border-left:3px solid #8a3a3a}
+.profit-item.blue{border-left:3px solid #3a6a8a}
+.profit-label{font-size:10px;color:#5b7fa6;margin-bottom:3px}
+.profit-value{font-size:16px;font-weight:700}
+.profit-value.green{color:#6ada8a}
+.profit-value.yellow{color:#daba6a}
+.profit-value.red{color:#da7a7a}
+.profit-value.blue{color:#7aabda}
+.profit-bar-wrap{background:#0a1018;border-radius:4px;height:8px;margin-top:8px;overflow:hidden}
+.profit-bar{height:8px;border-radius:4px}
+.pw-wrap{display:flex;flex-direction:column;align-items:center;padding:40px 20px}
+.pw-title{font-size:16px;font-weight:700;color:#c8deff;margin-bottom:8px}
+.pw-sub{font-size:12px;color:#5b7fa6;margin-bottom:24px;text-align:center}
+.pw-dots{display:flex;gap:12px;margin-bottom:24px}
+.pw-dot{width:14px;height:14px;border-radius:50%;background:#1e2d44;border:2px solid #2a3a55;transition:all .15s}
+.pw-dot.filled{background:#7bb3ff;border-color:#7bb3ff}
+.pw-dot.error{background:#da7a7a;border-color:#da7a7a}
+.pw-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:280px;width:100%}
+.pw-key{padding:18px;background:#131c2e;border:1px solid #1e3050;border-radius:10px;font-size:20px;font-weight:700;color:#c8deff;cursor:pointer;text-align:center;user-select:none}
+.pw-key:active{background:#1e3050}
+.pw-key.del{font-size:16px;color:#5b7fa6}
+.edit-modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:800;display:flex;align-items:center;justify-content:center}
+.edit-modal{background:#131c2e;border:1px solid #2a3a55;border-radius:12px;padding:20px;width:90%;max-width:340px}
+.edit-modal-title{font-size:14px;font-weight:700;color:#c8deff;margin-bottom:14px}
+.edit-row{display:flex;gap:8px;margin-bottom:10px;align-items:center}
+.edit-lbl{font-size:11px;color:#5b7fa6;white-space:nowrap;min-width:50px}
+.edit-btns{display:flex;gap:8px;margin-top:14px}
+.edit-save{flex:1;padding:10px;background:#2a5caa;border:none;border-radius:6px;color:#c8deff;font-weight:700;cursor:pointer}
+.edit-cancel{flex:1;padding:10px;background:#1e2d44;border:1px solid #2a3a55;border-radius:6px;color:#7a9ab0;cursor:pointer}
+.toast{position:fixed;bottom:calc(24px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;box-shadow:0 4px 24px rgba(0,0,0,.5);z-index:9999;white-space:nowrap}
+.toast.ok{background:#1a3a2a;border:1px solid #2a7a4a;color:#7ada8a}
+.toast.ng{background:#3a1a1a;border:1px solid #7a2a2a;color:#ff8080}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center;z-index:9998}
+.cfb{background:#131c2e;border:1px solid #2a3a55;border-radius:12px;padding:24px;max-width:300px;width:90%;text-align:center}
+.cft{color:#ff8080;font-weight:700;font-size:15px;margin-bottom:8px}
+.cfs{color:#5b7fa6;font-size:12px;margin-bottom:20px}
+.cfr{display:flex;gap:10px}
+.cfd{flex:1;padding:10px;background:#5a1a1a;border:1px solid #8a2a2a;border-radius:6px;color:#ff8080;cursor:pointer;font-weight:700;font-size:13px}
+.cfc{flex:1;padding:10px;background:#1e2d44;border:1px solid #2a3a55;border-radius:6px;color:#7a9ab0;cursor:pointer;font-size:13px}
+.emp{text-align:center;color:#3a5070;padding:48px 0;font-size:13px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:13px}
+.contract-badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;background:#1a3050;color:#7aabda;margin-left:6px}
+.hint{font-size:11px;color:#4a6080;margin-bottom:10px}
+@media(max-width:380px){
+  .cgh,.cgr{grid-template-columns:1fr 44px 66px 56px 22px}
+  .profit-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const SK="gisho_r_v6",MK="gisho_m_v6",PK="gisho_pw_v1";
+const ld=()=>{try{const r=localStorage.getItem(SK);return r?JSON.parse(r):{}}catch{return{}}};
+const sd=d=>{try{localStorage.setItem(SK,JSON.stringify(d))}catch{}};
+const lm=()=>{try{const r=localStorage.getItem(MK);return r?JSON.parse(r):{sites:[],clients:[],workers:[],subs:[],subRates:{},materialItems:{},consumableItems:{},siteContracts:{}}}catch{return{sites:[],clients:[],workers:[],subs:[],subRates:{},materialItems:{},consumableItems:{},siteContracts:{}}}};
+const sm=m=>{try{localStorage.setItem(MK,JSON.stringify(m))}catch{}};
+const lpw=()=>{try{return localStorage.getItem(PK)||""}catch{return""}};
+const spw=p=>{try{localStorage.setItem(PK,p)}catch{}};
+const ym=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`;
+const ymd=d=>`${ym(d)}-${String(d.getDate()).padStart(2,"0")}`;
+const nw=()=>new Date();
+const nf=n=>Number(n||0).toLocaleString();
+const pct=n=>Number(n||0).toFixed(1)+"%";
+const cal=rows=>(rows||[]).reduce((s,r)=>s+Number(r.qty||0)*Number(r.unit||0),0);
+const uid=()=>crypto.randomUUID();
+const eM=()=>({id:uid(),name:"",qty:1,unit:0});
+const eC=()=>({id:uid(),name:"",qty:1,unit:0});
+const eR=date=>({id:uid(),date:date||ymd(nw()),siteName:"",siteAddress:"",distance:"",client:"",contractAmount:"",workers:[{name:"",count:1,manual:false}],subs:[{company:"",count:1,rate:"",subTotal:0,manual:false}],workContent:"",materialRows:[eM()],consumableRows:[eC()],highwayRows:[{section:"",amount:""}],parking:"",siteNameManual:false,clientManual:false});
+
+function calcProfit(r,master){
+  const contract=Number(r.contractAmount||0);
+  const matCost=cal(r.materialRows),conCost=cal(r.consumableRows);
+  const highwayCost=(r.highwayRows||[]).reduce((s,x)=>s+Number(x.amount||0),0)||Number(r.highway||0);
+  const parkingCost=Number(r.parking||0);
+  let subCost=0;
+  (r.subs||[]).forEach(s=>{
+    if(Number(s.subTotal)>0)subCost+=Number(s.subTotal);
+    else{const rate=Number(s.rate)||Number((master.subRates||{})[s.company]||0);subCost+=rate*Number(s.count||0);}
+  });
+  const totalExpense=matCost+conCost+highwayCost+parkingCost+subCost;
+  const grossProfit=contract-(matCost+conCost+subCost);
+  const netProfit=contract-totalExpense;
+  const tp=(r.workers||[]).reduce((s,w)=>s+Number(w.count||0),0)+(r.subs||[]).reduce((s,b)=>s+Number(b.count||0),0);
+  return{contract,matCost,conCost,subCost,highwayCost,parkingCost,totalExpense,grossProfit,netProfit,perPerson:tp>0?contract/tp:0,grossRate:contract>0?grossProfit/contract*100:0,netRate:contract>0?netProfit/contract*100:0,totalPeople:tp};
+}
+
+function toCSV(reps,master){
+  const h=["日付","現場名","住所","移動距離(km)","元請け","請負金額","作業員","自社人数","外注会社","外注人数","外注費計","作業内容","材料明細","材料費計","消耗品明細","消耗品費計","高速明細","高速代","駐車場代","経費合計","粗利額","粗利率","利益率","一人あたり売上"];
+  const rows=reps.map(r=>{
+    const p=calcProfit(r,master);
+    const md=(r.materialRows||[]).filter(x=>x.name).map(x=>`${x.name}×${x.qty}@¥${x.unit}`).join("/");
+    const cd=(r.consumableRows||[]).filter(x=>x.name).map(x=>`${x.name}×${x.qty}@¥${x.unit}`).join("/");
+    const hd=(r.highwayRows||[]).filter(x=>x.section).map(x=>x.section+"¥"+x.amount).join("/");
+    return[r.date,r.siteName,r.siteAddress,r.distance,r.client,p.contract,r.workers.map(w=>w.name).join("/"),r.workers.reduce((s,w)=>s+Number(w.count||0),0),(r.subs||[]).map(s=>s.company).join("/"),(r.subs||[]).reduce((s,b)=>s+Number(b.count||0),0),p.subCost,r.workContent,md,p.matCost,cd,p.conCost,hd,p.highwayCost,p.parkingCost,p.totalExpense,p.grossProfit,p.grossRate.toFixed(1)+"%",p.netRate.toFixed(1)+"%",Math.round(p.perPerson)];
+  });
+  return[h,...rows].map(r=>r.map(c=>`"${String(c||"").replace(/"/g,'""')}"`).join(",")).join("\n");
+}
+
+let S={tab:"input",data:ld(),master:lm(),month:ym(nw()),er:eR(),eid:null,mtab:"sites",mval:"",mval2:"",mval3:"",toast:null,cdel:null,open:{},_tt:null,pw:lpw(),pwUnlocked:false,pwInput:"",pwError:false,showPwSetup:false,pwSetupStep:0,pwSetupFirst:"",editModal:null};
+
+function h(tag,a,...ch){const el=document.createElement(tag);if(a)Object.entries(a).forEach(([k,v])=>{if(k==="cls")el.className=v;else if(k==="sty")Object.assign(el.style,v);else if(k[0]==="o"&&k[1]==="n")el.addEventListener(k.slice(2).toLowerCase(),v);else el.setAttribute(k,v);});ch.flat(9).forEach(c=>{if(c==null||c===false)return;el.appendChild(typeof c==="string"||typeof c==="number"?document.createTextNode(String(c)):c)});return el;}
+const D=(a,...c)=>h("div",a,...c);
+const Sp=(a,...c)=>h("span",a,...c);
+const Bt=(a,...c)=>h("button",a,...c);
+const In=(a)=>h("input",a);
+function Stat(label,val,sm){return D({cls:"stat-block"},Sp({cls:"stl"},label),D({cls:"stv"+(sm?" sm":"")},val));}
+
+function TxtInp(cls,val,ph,onUpdate,onDone){const el=In({type:"text",cls,value:val||"",placeholder:ph||""});el.addEventListener("input",e=>onUpdate(e.target.value));el.addEventListener("blur",()=>onDone());return el;}
+function NumInp(cls,val,ph,onUpdate){const el=In({type:"number",cls,value:val||"",placeholder:ph||""});el.addEventListener("input",e=>onUpdate(e.target.value));el.addEventListener("blur",()=>render());return el;}
+function TxtArea(cls,val,ph,onUpdate){const el=h("textarea",{cls,placeholder:ph||""},val||"");el.addEventListener("input",e=>onUpdate(e.target.value));el.addEventListener("blur",()=>render());return el;}
+
+function SelOrTxt(opts,val,ph,setter,isManual,onToggle,sm){
+  const wrap=D({cls:"sel-wrap"});
+  if(!isManual&&opts.length>0){
+    const sel=h("select",{cls:"sel"+(sm?" sel-sm":"")});
+    sel.appendChild(h("option",{value:""},"-- 選択 --"));
+    opts.forEach(o=>{const op=h("option",{value:o},o);if(o===val)op.selected=true;sel.appendChild(op);});
+    sel.addEventListener("change",e=>{setter(e.target.value);render();});
+    wrap.appendChild(sel);
+    wrap.appendChild(Bt({cls:"mbtn",onclick:()=>{setter("");onToggle(true);render();}},"直接入力"));
+  }else{
+    const inp=In({type:"text",cls:"inp"+(sm?" inp-sm":""),value:val||"",placeholder:ph||""});
+    inp.addEventListener("input",e=>setter(e.target.value));
+    inp.addEventListener("blur",()=>render());
+    wrap.appendChild(inp);
+    if(opts.length>0)wrap.appendChild(Bt({cls:"mbtn on",onclick:()=>{setter("");onToggle(false);render();}},"選択に戻す"));
+  }
+  return wrap;
+}
+
+function CostSec(label,rows,itemMaster,accent,bg,key){
+  const total=cal(rows);const names=Object.keys(itemMaster||{});
+  const sec=D({cls:"cs"});
+  const hdr=D({cls:"ch"},Sp({cls:"chl"},label),total>0?Sp({sty:{fontSize:"13px",fontWeight:"700",color:accent}},"合計 ¥"+nf(total)):null);
+  const box=D({cls:"cb",sty:{background:bg,border:"1px solid "+accent+"55"}});
+  const gh=D({cls:"cgh"});["品名","数量","単価(円)","小計",""].forEach(t=>gh.appendChild(Sp({},t)));box.appendChild(gh);
+  rows.forEach((row,i)=>{
+    const sub=Number(row.qty||0)*Number(row.unit||0);const rw=D({cls:"cgr"});
+    if(!row.manual&&names.length>0){
+      const sel=h("select",{cls:"sel sel-sm",sty:{paddingRight:"24px"}});
+      sel.appendChild(h("option",{value:""},"-- 選択 --"));
+      names.forEach(n=>{const op=h("option",{value:n},n);if(n===row.name)op.selected=true;sel.appendChild(op);});
+      sel.addEventListener("change",e=>{const v=e.target.value;const def=itemMaster[v];const a=[...S.er[key]];a[i]={...a[i],name:v,qty:def?def.qty:a[i].qty,unit:def?def.unit:a[i].unit};S.er={...S.er,[key]:a};render();});
+      rw.appendChild(sel);
+    }else{
+      const inp=In({type:"text",cls:"inp inp-sm",value:row.name||"",placeholder:"品名"});
+      inp.addEventListener("input",e=>{const a=[...S.er[key]];a[i]={...a[i],name:e.target.value};S.er={...S.er,[key]:a};});
+      inp.addEventListener("blur",()=>render());rw.appendChild(inp);
+    }
+    const qi=In({type:"number",min:"0",step:"0.1",cls:"inp inp-c inp-sm",value:row.qty,placeholder:"1"});qi.addEventListener("input",e=>{const a=[...S.er[key]];a[i]={...a[i],qty:e.target.value};S.er={...S.er,[key]:a};});qi.addEventListener("blur",()=>render());
+    const ui=In({type:"number",min:"0",cls:"inp inp-r inp-sm",value:row.unit,placeholder:"0"});ui.addEventListener("input",e=>{const a=[...S.er[key]];a[i]={...a[i],unit:e.target.value};S.er={...S.er,[key]:a};});ui.addEventListener("blur",()=>render());
+    rw.appendChild(qi);rw.appendChild(ui);
+    rw.appendChild(D({cls:"cst",sty:{color:sub>0?accent:"#3a5070"}},sub>0?"¥"+nf(sub):"-"));
+    rw.appendChild(rows.length>1?Bt({cls:"db",onclick:()=>{S.er={...S.er,[key]:S.er[key].filter((_,x)=>x!==i)};render();}},"✕"):D({}));
+    box.appendChild(rw);
+  });
+  const ef=key==="materialRows"?eM:eC;
+  const frow=D({sty:{display:"flex",gap:"8px",alignItems:"center",marginTop:"6px",flexWrap:"wrap"}});
+  frow.appendChild(Bt({cls:"ab",sty:{margin:"0"},onclick:()=>{S.er={...S.er,[key]:[...S.er[key],ef()]};render();}},"＋ 行を追加"));
+  if(names.length>0){const hasM=rows.some(r=>r.manual);frow.appendChild(Bt({cls:"mbtn"+(hasM?" on":""),onclick:()=>{const a=S.er[key].map(r=>({...r,manual:!hasM}));S.er={...S.er,[key]:a};render();}},hasM?"選択に戻す":"直接入力"));}
+  box.appendChild(frow);
+  if(total>0){const tl=D({cls:"ctl",sty:{borderTopColor:accent+"44"}});tl.appendChild(Sp({sty:{color:accent,fontSize:"13px",fontWeight:"700"}},label+"合計　¥"+nf(total)));box.appendChild(tl);}
+  sec.appendChild(hdr);sec.appendChild(box);return sec;
+}
+
+function ProfitPanel(r){
+  const p=calcProfit(r,S.master);
+  if(p.contract<=0)return D({cls:"profit-card"},D({sty:{color:"#3a5070",fontSize:"12px",textAlign:"center",padding:"8px 0"}},"請負金額を入力すると収支が表示されます"));
+  const panel=D({cls:"profit-card"});panel.appendChild(D({cls:"profit-title"},"💰 収支サマリー"));
+  const grid=D({cls:"profit-grid"});
+  const gc=v=>v>=30?"green":v>=15?"yellow":"red";const nc2=v=>v>=20?"green":v>=10?"yellow":"red";
+  grid.appendChild(mkPI("一人あたり売上","¥"+nf(Math.round(p.perPerson)),"blue","blue"));
+  grid.appendChild(mkPI("粗利額","¥"+nf(Math.round(p.grossProfit)),p.grossProfit>=0?"green":"red",p.grossProfit>=0?"green":"red"));
+  grid.appendChild(mkPI("粗利率",pct(p.grossRate),gc(p.grossRate),gc(p.grossRate)));
+  grid.appendChild(mkPI("利益率",pct(p.netRate),nc2(p.netRate),nc2(p.netRate)));
+  panel.appendChild(grid);
+  const det=D({sty:{fontSize:"11px",color:"#5b7fa6",lineHeight:"1.8"}});
+  det.appendChild(D({},"請負：¥"+nf(p.contract)+" ／ 外注費：¥"+nf(Math.round(p.subCost))));
+  det.appendChild(D({},"材料：¥"+nf(p.matCost)+" ／ 消耗品：¥"+nf(p.conCost)+" ／ その他：¥"+nf(p.highwayCost+p.parkingCost)));
+  panel.appendChild(det);
+  if(p.grossRate>0){const bw=D({cls:"profit-bar-wrap"});bw.appendChild(D({cls:"profit-bar",sty:{width:Math.min(p.grossRate,100)+"%",background:p.grossRate>=30?"#4a8a6a":p.grossRate>=15?"#8a7a3a":"#8a3a3a"}}));panel.appendChild(bw);}
+  return panel;
+}
+function mkPI(label,val,ic,vc){const item=D({cls:"profit-item "+ic});item.appendChild(D({cls:"profit-label"},label));item.appendChild(D({cls:"profit-value "+vc},val));return item;}
+
+function Card(r){
+  const isOpen=!!S.open[r.id];
+  const tw=(r.workers||[]).reduce((s,w)=>s+Number(w.count||0),0);const ts=(r.subs||[]).reduce((s,b)=>s+Number(b.count||0),0);
+  const mt=cal(r.materialRows),ct=cal(r.consumableRows);const p=calcProfit(r,S.master);const contract=Number(r.contractAmount||0);
+  const card=D({cls:"rc"});
+  const hdr=D({cls:"rch"},D({},D({cls:"rct"},r.date+" — "+(r.siteName||"現場名未入力"),(contract>0?Sp({cls:"contract-badge"},"¥"+nf(contract)):null)),D({cls:"rcs"},(r.client||"")+" ／ 自社"+tw+"名 外注"+ts+"名")),D({cls:"rcr"},p.totalExpense>0?Sp({cls:"rcc"},"経費¥"+nf(p.totalExpense)):null,Sp({cls:"rca"},isOpen?"▲":"▼")));
+  hdr.addEventListener("click",()=>{S.open={...S.open,[r.id]:!isOpen};render();});card.appendChild(hdr);
+  if(isOpen){
+    const body=D({cls:"rcb"});
+    if(r.siteAddress)body.appendChild(D({sty:{marginBottom:"4px"}},"📍 "+r.siteAddress));
+    if(r.distance)body.appendChild(D({sty:{marginBottom:"4px"}},"🚗 移動："+r.distance+" km"));
+    if(r.workContent)body.appendChild(D({sty:{marginBottom:"8px"}},"🔧 "+r.workContent));
+    const tr=D({cls:"tr"});
+    (r.workers||[]).filter(w=>w.name).forEach(w=>tr.appendChild(Sp({cls:"tg",sty:{background:"#1a3050"}},"👷 "+w.name+"×"+w.count)));
+    (r.subs||[]).filter(s=>s.company).forEach(s=>{const rate=Number(s.rate)||Number((S.master.subRates||{})[s.company]||0);const cost=Number(s.subTotal)>0?Number(s.subTotal):rate*Number(s.count||0);tr.appendChild(Sp({cls:"tg",sty:{background:"#1a2a1a"}},"🏗 "+s.company+"×"+s.count+(cost>0?" ¥"+nf(cost):"")));});
+    body.appendChild(tr);
+    if(mt>0){const bx=D({cls:"db2",sty:{background:"#0e1e14",border:"1px solid #2a5a3a44"}});bx.appendChild(D({cls:"dbl",sty:{color:"#4a8a6a"}},"材料費"));(r.materialRows||[]).filter(x=>x.name||Number(x.unit)>0).forEach(x=>bx.appendChild(D({cls:"dbi",sty:{color:"#7a9a80"}},Sp({},(x.name||"—")+" × "+x.qty),Sp({},"¥"+nf(Number(x.qty||0)*Number(x.unit||0))))));bx.appendChild(D({cls:"dbt",sty:{borderTop:"1px solid #2a4a3a",color:"#4a8a6a"}},"合計 ¥"+nf(mt)));body.appendChild(bx);}
+    if(ct>0){const bx=D({cls:"db2",sty:{background:"#1a1800",border:"1px solid #5a4a2a44"}});bx.appendChild(D({cls:"dbl",sty:{color:"#8a7a3a"}},"消耗品費"));(r.consumableRows||[]).filter(x=>x.name||Number(x.unit)>0).forEach(x=>bx.appendChild(D({cls:"dbi",sty:{color:"#9a9060"}},Sp({},(x.name||"—")+" × "+x.qty),Sp({},"¥"+nf(Number(x.qty||0)*Number(x.unit||0))))));bx.appendChild(D({cls:"dbt",sty:{borderTop:"1px solid #4a3a1a",color:"#8a7a3a"}},"合計 ¥"+nf(ct)));body.appendChild(bx);}
+    if(p.highwayCost>0||p.parkingCost>0){
+      const er2=D({cls:"er2"});
+      if(p.highwayCost>0){const hw=(r.highwayRows||[]).filter(x=>x.section||Number(x.amount)>0);if(hw.length>0){hw.forEach(x=>er2.appendChild(Sp({},"🛣️ "+(x.section||"高速")+" ¥"+nf(x.amount))));}else{er2.appendChild(Sp({},"高速 ¥"+nf(p.highwayCost)));}}
+      if(p.parkingCost>0)er2.appendChild(Sp({},"🅿️ 駐車 ¥"+nf(p.parkingCost)));
+      body.appendChild(er2);
+    }
+    if(p.totalExpense>0)body.appendChild(D({cls:"tl2"},"経費合計 ¥"+nf(p.totalExpense)));
+    if(S.pw===""||S.pwUnlocked){if(contract>0)body.appendChild(ProfitPanel(r));}
+    const btns=D({cls:"cbs"});
+    btns.appendChild(Bt({cls:"eb",onclick:()=>{S.er={...r,workers:[...(r.workers||[])],subs:[...(r.subs||[])],materialRows:[...(r.materialRows||[eM()])],consumableRows:[...(r.consumableRows||[eC()])],highwayRows:[...(r.highwayRows||[{section:"",amount:""}])]};S.eid=r.id;S.tab="input";render();}},"✏️ 編集"));
+    btns.appendChild(Bt({cls:"dlb",onclick:()=>{S.cdel=r.id;render();}},"🗑 削除"));
+    body.appendChild(btns);card.appendChild(body);
+  }
+  return card;
+}
+
+function PwScreen(mode){
+  const wrap=D({cls:"pw-wrap"});
+  wrap.appendChild(D({cls:"pw-title"},mode==="unlock"?"🔐 収支タブのロック解除":mode==="setup"?"🔑 暗証番号を設定":"🔑 もう一度入力"));
+  wrap.appendChild(D({cls:"pw-sub"},mode==="unlock"?"4桁の暗証番号を入力してください":mode==="setup"?"4桁の暗証番号を設定します":"確認のためもう一度入力してください"));
+  const dots=D({cls:"pw-dots"});for(let i=0;i<4;i++)dots.appendChild(D({cls:"pw-dot"+(S.pwInput.length>i?" filled":"")+(S.pwError?" error":"")}));wrap.appendChild(dots);
+  const pad=D({cls:"pw-pad"});
+  [1,2,3,4,5,6,7,8,9,"",0,"⌫"].forEach(k=>{
+    if(k===""){pad.appendChild(D({}));return;}
+    pad.appendChild(Bt({cls:"pw-key"+(k==="⌫"?" del":""),onclick:()=>{
+      S.pwError=false;if(k==="⌫"){S.pwInput=S.pwInput.slice(0,-1);render();return;}if(S.pwInput.length>=4)return;S.pwInput+=String(k);
+      if(S.pwInput.length===4){setTimeout(()=>{
+        if(mode==="unlock"){if(S.pwInput===S.pw){S.pwUnlocked=true;S.pwInput="";S.tab="profit";render();}else{S.pwError=true;S.pwInput="";render();setTimeout(()=>{S.pwError=false;render();},600);}}
+        else if(mode==="setup"){S.pwSetupFirst=S.pwInput;S.pwSetupStep=1;S.pwInput="";render();}
+        else{if(S.pwInput===S.pwSetupFirst){S.pw=S.pwInput;spw(S.pw);S.showPwSetup=false;S.pwSetupStep=0;S.pwSetupFirst="";S.pwInput="";S.pwUnlocked=true;toast("暗証番号を設定しました");render();}else{S.pwError=true;S.pwInput="";S.pwSetupStep=0;S.pwSetupFirst="";render();setTimeout(()=>{S.pwError=false;render();},600);}}
+      },80);}render();
+    }},String(k)));
+  });
+  wrap.appendChild(pad);
+  if(mode==="unlock"&&S.pw)wrap.appendChild(Bt({sty:{background:"none",border:"none",cursor:"pointer",marginTop:"12px",color:"#3a5070",fontSize:"11px",textDecoration:"underline"},onclick:()=>{S.pw="";spw("");S.pwUnlocked=false;S.pwInput="";toast("暗証番号を解除しました");S.tab="input";render();}},"暗証番号を削除する"));
+  return wrap;
+}
+
+function EditModal(){
+  if(!S.editModal)return null;
+  const{key,index,val,val2,val3}=S.editModal;const isItem=key==="materialItems"||key==="consumableItems",isRate=key==="subRates";
+  const bg=D({cls:"edit-modal-bg"});bg.addEventListener("click",e=>{if(e.target===bg){S.editModal=null;render();}});
+  const box=D({cls:"edit-modal"});box.appendChild(D({cls:"edit-modal-title"},"✏️ 編集"));
+  const rows=isItem?[["品名","text",val,"val"],["数量","number",val2,"val2"],["単価","number",val3,"val3"]]:isRate?[["会社名","text",val,"val"],["単価/人","number",val2,"val2"]]:[["名前","text",val,"val"]];
+  rows.forEach(([lbl,type,v,prop])=>{const row=D({cls:"edit-row"});row.appendChild(D({cls:"edit-lbl"},lbl));const inp=In({type,cls:"inp inp-sm",value:v||""});inp.addEventListener("input",e=>{S.editModal={...S.editModal,[prop]:e.target.value};});row.appendChild(inp);box.appendChild(row);});
+  const btns=D({cls:"edit-btns"});
+  btns.appendChild(Bt({cls:"edit-save",onclick:()=>{
+    const{key,index,val,val2,val3}=S.editModal;if(!val?.trim()){toast("名前を入力してください","ng");return;}
+    if(key==="materialItems"||key==="consumableItems"){const items={...(S.master[key]||{})};const oldName=Object.keys(items)[index];if(oldName&&oldName!==val.trim())delete items[oldName];items[val.trim()]={qty:Number(val2||1),unit:Number(val3||0)};S.master={...S.master,[key]:items};}
+    else if(key==="subRates"){const rates={...(S.master.subRates||{})};const oldName=Object.keys(rates)[index];if(oldName&&oldName!==val.trim())delete rates[oldName];rates[val.trim()]=Number(val2||0);const newSubs=[...new Set([...(S.master.subs||[]).filter(s=>s!==oldName),val.trim()])];S.master={...S.master,subRates:rates,subs:newSubs};}
+    else{const list=[...(S.master[key]||[])];list[index]=val.trim();S.master={...S.master,[key]:list};}
+    sm(S.master);S.editModal=null;toast("更新しました");render();
+  }},"保存"));
+  btns.appendChild(Bt({cls:"edit-cancel",onclick:()=>{S.editModal=null;render();}},"キャンセル"));
+  box.appendChild(btns);bg.appendChild(box);return bg;
+}
+
+function render(){
+  const app=document.getElementById("app");app.innerHTML="";
+  const er=S.er;const mt=cal(er.materialRows),ct=cal(er.consumableRows);
+  const mrs=Object.values(S.data).filter(r=>r.date?.startsWith(S.month)).sort((a,b)=>a.date.localeCompare(b.date));
+  const mlabels={sites:"現場",clients:"元請け",workers:"作業員",subs:"外注",subRates:"外注単価",siteContracts:"現場請負",materialItems:"材料名",consumableItems:"消耗品名"};
+  const profitLocked=S.pw!==""&&!S.pwUnlocked;
+
+  app.appendChild(D({cls:"header"},D({},D({cls:"header-sub"},"株式会社技匠"),D({cls:"header-title"},"作業日報管理")),D({cls:"header-date"},ymd(nw()))));
+  const tabs=D({cls:"tabs"});
+  [["input","✏️ 入力"],["list","📋 一覧"],["summary","📊 累計"],["profit","💰 収支"+(profitLocked?" 🔒":"")],["master","⚙️ マスタ"]].forEach(([k,l])=>{tabs.appendChild(Bt({cls:"tab-btn"+(S.tab===k?" active":""),onclick:()=>{if(k==="profit"&&profitLocked){S.tab="profit";S.pwInput="";render();return;}S.tab=k;render();}},l));});
+  app.appendChild(tabs);const con=D({cls:"content"});
+
+  if(S.tab==="input"){
+    con.appendChild(D({cls:"stt"},S.eid?"📝 日報を編集":"📝 新規日報入力"));
+    const df=D({cls:"field"});df.appendChild(h("label",{cls:"fl"},"日付"));const di=In({type:"date",cls:"inp",value:er.date});di.addEventListener("change",e=>{S.er={...S.er,date:e.target.value};render();});df.appendChild(di);con.appendChild(df);
+    const caf=D({cls:"field"});caf.appendChild(h("label",{cls:"fl"},"請負金額 (円)"));caf.appendChild(NumInp("inp inp-r",er.contractAmount,"0（税込）",v=>{S.er={...S.er,contractAmount:v};}));con.appendChild(caf);
+    const sf=D({cls:"field"});sf.appendChild(h("label",{cls:"fl"},"現場名 ＊"));sf.appendChild(SelOrTxt(S.master.sites,er.siteName,"現場名を直接入力",v=>{S.er={...S.er,siteName:v};},er.siteNameManual,m=>{S.er={...S.er,siteNameManual:m};}));con.appendChild(sf);
+    const af=D({cls:"field"});af.appendChild(h("label",{cls:"fl"},"現場住所"));af.appendChild(TxtInp("inp",er.siteAddress,"住所",v=>{S.er={...S.er,siteAddress:v};},render));con.appendChild(af);
+    const distf=D({cls:"field"});distf.appendChild(h("label",{cls:"fl"},"移動距離 (km)"));distf.appendChild(NumInp("inp",er.distance,"0",v=>{S.er={...S.er,distance:v};}));con.appendChild(distf);
+    const cf=D({cls:"field"});cf.appendChild(h("label",{cls:"fl"},"元請け"));cf.appendChild(SelOrTxt(S.master.clients,er.client,"元請け会社名を直接入力",v=>{S.er={...S.er,client:v};},er.clientManual,m=>{S.er={...S.er,clientManual:m};}));con.appendChild(cf);
+    con.appendChild(D({cls:"sl"},"作業員"));
+    er.workers.forEach((w,i)=>{const row=D({cls:"pr"});row.appendChild(SelOrTxt(S.master.workers,w.name,"氏名を直接入力",v=>{const ws=[...er.workers];ws[i]={...ws[i],name:v};S.er={...S.er,workers:ws};},w.manual,m=>{const ws=[...er.workers];ws[i]={...ws[i],manual:m,name:""};S.er={...S.er,workers:ws};render();},true));const ci=NumInp("inp inp-c",w.count,"1",v=>{const ws=[...er.workers];ws[i]={...ws[i],count:v};S.er={...S.er,workers:ws};});ci.style.width="55px";row.appendChild(ci);row.appendChild(Sp({cls:"ul"},"名"));if(er.workers.length>1)row.appendChild(Bt({cls:"db",onclick:()=>{S.er={...S.er,workers:S.er.workers.filter((_,x)=>x!==i)};render();}},"✕"));con.appendChild(row);});
+    con.appendChild(Bt({cls:"ab",onclick:()=>{S.er={...S.er,workers:[...S.er.workers,{name:"",count:1,manual:false}]};render();}},"＋ 作業員追加"));
+    con.appendChild(D({cls:"sl"},"外注"));
+    er.subs.forEach((s,i)=>{
+      const masterRate=Number((S.master.subRates||{})[s.company]||0);const effectiveRate=Number(s.rate||masterRate||0);const autoTotal=Number(s.subTotal)>0?Number(s.subTotal):effectiveRate*Number(s.count||0);
+      const wrap=D({sty:{background:"#0d1a2a",border:"1px solid #1e2d44",borderRadius:"7px",padding:"9px 10px",marginBottom:"8px"}});
+      const row1=D({cls:"pr",sty:{marginBottom:"6px"}});row1.appendChild(SelOrTxt(S.master.subs,s.company,"会社名を直接入力",v=>{const ss=[...er.subs];ss[i]={...ss[i],company:v};S.er={...S.er,subs:ss};},s.manual,m=>{const ss=[...er.subs];ss[i]={...ss[i],manual:m,company:""};S.er={...S.er,subs:ss};render();},true));
+      const ci=NumInp("inp inp-c",s.count,"1",v=>{const ss=[...er.subs];ss[i]={...ss[i],count:v};S.er={...S.er,subs:ss};});ci.style.width="55px";row1.appendChild(ci);row1.appendChild(Sp({cls:"ul"},"名"));if(er.subs.length>1)row1.appendChild(Bt({cls:"db",onclick:()=>{S.er={...S.er,subs:S.er.subs.filter((_,x)=>x!==i)};render();}},"✕"));wrap.appendChild(row1);
+      const row2=D({sty:{display:"flex",gap:"6px",alignItems:"center"}});row2.appendChild(Sp({sty:{fontSize:"11px",color:"#4a6080",whiteSpace:"nowrap"}},"常用単価"));const ri=NumInp("inp inp-r inp-sm",s.rate!==""?s.rate:(masterRate||""),masterRate>0?"¥"+nf(masterRate)+" (マスタ)":"手入力",v=>{const ss=[...er.subs];ss[i]={...ss[i],rate:v};S.er={...S.er,subs:ss};});ri.style.flex="1";row2.appendChild(ri);row2.appendChild(Sp({sty:{fontSize:"11px",color:"#4a6080",whiteSpace:"nowrap"}},"円/人"));if(autoTotal>0)row2.appendChild(Sp({sty:{fontSize:"12px",color:"#7aabda",fontWeight:"700",whiteSpace:"nowrap",marginLeft:"4px"}},"= ¥"+nf(autoTotal)));wrap.appendChild(row2);
+      if(s.rate===""&&masterRate===0){const row3=D({sty:{display:"flex",gap:"6px",alignItems:"center",marginTop:"5px"}});row3.appendChild(Sp({sty:{fontSize:"11px",color:"#4a6080",whiteSpace:"nowrap"}},"外注費合計"));const ti=NumInp("inp inp-r inp-sm",s.subTotal||"","単価不明なら合計入力",v=>{const ss=[...er.subs];ss[i]={...ss[i],subTotal:v};S.er={...S.er,subs:ss};});ti.style.flex="1";row3.appendChild(ti);row3.appendChild(Sp({sty:{fontSize:"11px",color:"#4a6080"}},"円"));wrap.appendChild(row3);}
+      con.appendChild(wrap);
+    });
+    con.appendChild(Bt({cls:"ab",onclick:()=>{S.er={...S.er,subs:[...S.er.subs,{company:"",count:1,rate:"",subTotal:0,manual:false}]};render();}},"＋ 外注追加"));
+    const wcf=D({cls:"field"});wcf.appendChild(h("label",{cls:"fl"},"作業内容"));wcf.appendChild(TxtArea("inp",er.workContent,"作業内容を記入",v=>{S.er={...S.er,workContent:v};}));con.appendChild(wcf);
+    con.appendChild(CostSec("材料費",er.materialRows||[],S.master.materialItems||{},"#4a8a6a","#0e1e14","materialRows"));
+    con.appendChild(CostSec("消耗品費",er.consumableRows||[],S.master.consumableItems||{},"#8a7a3a","#1a1800","consumableRows"));
+    // 高速代
+    const hwSec=D({cls:"cs"});const hwTotal=(er.highwayRows||[]).reduce((s,x)=>s+Number(x.amount||0),0);
+    hwSec.appendChild(D({cls:"ch"},Sp({cls:"chl"},"🛣️ 高速代"),hwTotal>0?Sp({sty:{fontSize:"13px",fontWeight:"700",color:"#5a8aaa"}},"合計 ¥"+nf(hwTotal)):null));
+    const hwBox=D({sty:{background:"#0d1624",border:"1px solid #2a4a6a55",borderRadius:"8px",padding:"11px"}});
+    hwBox.appendChild(D({sty:{display:"grid",gridTemplateColumns:"1fr 110px 28px",gap:"6px",marginBottom:"6px",fontSize:"10px",color:"#4a6080"}},Sp({},"通行区間（例：名古屋西IC → 岡崎IC）"),Sp({sty:{textAlign:"right"}},"料金(円)"),Sp({})));
+    (er.highwayRows||[]).forEach((row,i)=>{
+      const rw=D({sty:{display:"grid",gridTemplateColumns:"1fr 110px 28px",gap:"6px",marginBottom:"6px",alignItems:"center"}});
+      const si=In({type:"text",cls:"inp inp-sm",value:row.section||"",placeholder:"区間を入力"});si.addEventListener("input",e=>{const a=[...S.er.highwayRows];a[i]={...a[i],section:e.target.value};S.er={...S.er,highwayRows:a};});si.addEventListener("blur",()=>render());
+      const ai=NumInp("inp inp-r inp-sm",row.amount,"0",v=>{const a=[...S.er.highwayRows];a[i]={...a[i],amount:v};S.er={...S.er,highwayRows:a};});
+      rw.appendChild(si);rw.appendChild(ai);rw.appendChild((er.highwayRows||[]).length>1?Bt({cls:"db",onclick:()=>{S.er={...S.er,highwayRows:S.er.highwayRows.filter((_,x)=>x!==i)};render();}},"✕"):D({}));hwBox.appendChild(rw);
+    });
+    hwBox.appendChild(Bt({cls:"ab",sty:{marginBottom:"0"},onclick:()=>{S.er={...S.er,highwayRows:[...(S.er.highwayRows||[]),{section:"",amount:""}]};render();}},"＋ 区間を追加"));
+    hwSec.appendChild(hwBox);con.appendChild(hwSec);
+    const pf=D({cls:"field"});pf.appendChild(h("label",{cls:"fl"},"🅿️ 駐車場代 (円)"));pf.appendChild(NumInp("inp inp-r",er.parking,"0",v=>{S.er={...S.er,parking:v};}));con.appendChild(pf);
+    const p=calcProfit(er,S.master);
+    if(p.totalExpense>0||p.subCost>0){const pv=D({cls:"cpv",sty:{marginTop:"13px"}});if(p.subCost>0)pv.appendChild(Stat("外注費","¥"+nf(Math.round(p.subCost)),true));if(mt>0)pv.appendChild(Stat("材料費","¥"+nf(mt),true));if(ct>0)pv.appendChild(Stat("消耗品費","¥"+nf(ct),true));if(p.highwayCost>0)pv.appendChild(Stat("高速代","¥"+nf(p.highwayCost),true));if(p.parkingCost>0)pv.appendChild(Stat("駐車場代","¥"+nf(p.parkingCost),true));pv.appendChild(Stat("経費合計","¥"+nf(p.totalExpense),true));con.appendChild(pv);}
+    if(p.contract>0&&(S.pw===""||S.pwUnlocked))con.appendChild(ProfitPanel(er));
+    const br=D({cls:"br",sty:{marginTop:"14px"}});br.appendChild(Bt({cls:"sbtn",onclick:saveReport},S.eid?"✅ 更新する":"💾 保存する"));if(S.eid)br.appendChild(Bt({cls:"xbtn",onclick:()=>{S.er=eR();S.eid=null;render();}},"キャンセル"));con.appendChild(br);
+  }
+
+  if(S.tab==="list"){
+    const nav=D({cls:"mn"});const inn=D({cls:"mi"});inn.appendChild(Bt({cls:"nb",onclick:()=>{const[y,m]=S.month.split("-").map(Number);S.month=ym(new Date(y,m-2,1));render();}},"‹"));inn.appendChild(D({cls:"ml"},S.month.replace("-","年")+"月"));inn.appendChild(Bt({cls:"nb",onclick:()=>{const[y,m]=S.month.split("-").map(Number);S.month=ym(new Date(y,m,1));render();}},"›"));nav.appendChild(inn);
+    nav.appendChild(Bt({cls:"csvb",onclick:()=>{const csv="\uFEFF"+toCSV(mrs,S.master);const blob=new Blob([csv],{type:"text/csv;charset=utf-8;"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="日報_"+S.month+".csv";a.click();URL.revokeObjectURL(url);toast("CSVをダウンロードしました");}},"📥 CSV出力"));con.appendChild(nav);
+    if(!mrs.length)con.appendChild(D({cls:"emp"},"この月の日報はありません"));
+    else{const bar=D({cls:"sbar"});bar.appendChild(Stat("稼働日数",mrs.length+"日"));bar.appendChild(Stat("自社延べ",mrs.reduce((s,r)=>s+(r.workers||[]).reduce((a,w)=>a+Number(w.count||0),0),0)+"人"));bar.appendChild(Stat("外注延べ",mrs.reduce((s,r)=>s+(r.subs||[]).reduce((a,b)=>a+Number(b.count||0),0),0)+"人"));bar.appendChild(Stat("経費計","¥"+nf(mrs.reduce((s,r)=>s+calcProfit(r,S.master).totalExpense,0))));const tc=mrs.reduce((s,r)=>s+Number(r.contractAmount||0),0);if(tc>0&&(S.pw===""||S.pwUnlocked))bar.appendChild(Stat("請負計","¥"+nf(tc)));con.appendChild(bar);mrs.forEach(r=>con.appendChild(Card(r)));}
+  }
+
+  if(S.tab==="summary"){
+    con.appendChild(D({cls:"stt"},"📊 現場別累計（全期間）"));const map={};
+    Object.values(S.data).forEach(r=>{
+      const k=r.siteName||"未記入";const p=calcProfit(r,S.master);
+      if(!map[k])map[k]={n:k,c:r.client,d:0,w:0,s:0,mat:0,con2:0,sub:0,hw:0,pk:0,cost:0,contract:0,tp:0};
+      map[k].d++;
+      map[k].w+=(r.workers||[]).reduce((s,w)=>s+Number(w.count||0),0);
+      map[k].s+=(r.subs||[]).reduce((s,b)=>s+Number(b.count||0),0);
+      map[k].tp+=p.totalPeople;
+      map[k].mat+=p.matCost;map[k].con2+=p.conCost;map[k].sub+=p.subCost;
+      map[k].hw+=p.highwayCost;map[k].pk+=p.parkingCost;
+      map[k].cost+=p.totalExpense;
+      // 請負：日報入力値 > マスタ登録値 の優先順
+      map[k].contract+=p.contract>0?p.contract:Number((S.master.siteContracts||{})[k]||0);
+    });
+    const sum=Object.values(map).sort((a,b)=>a.n.localeCompare(b.n));
+    if(!sum.length)con.appendChild(D({cls:"emp"},"データがありません"));
+    else sum.forEach(s=>{
+      const grossP=s.contract-(s.mat+s.con2+s.sub);
+      const netP=s.contract-s.cost;
+      const gr=s.contract>0?grossP/s.contract*100:0;
+      const nr=s.contract>0?netP/s.contract*100:0;
+      const pp=s.tp>0?s.contract/s.tp:0;
+      const gc=v=>v>=30?"green":v>=15?"yellow":"red";
+      const card=D({cls:"sc"});
+      // ヘッダ
+      const hn=D({sty:{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:"3px"}});
+      hn.appendChild(D({cls:"sn"},s.n));
+      if(s.contract>0&&(S.pw===""||S.pwUnlocked))hn.appendChild(Sp({cls:"contract-badge"},"請負 ¥"+nf(s.contract)));
+      card.appendChild(hn);
+      if(s.c)card.appendChild(D({cls:"scl"},"元請け："+s.c+" ／ "+s.d+"日間"));
+      // 人数
+      const ss=D({cls:"ss"});
+      ss.appendChild(Stat("稼働日数",s.d+"日",true));
+      ss.appendChild(Stat("自社累計",s.w+"人工",true));
+      ss.appendChild(Stat("外注累計",s.s+"人工",true));
+      card.appendChild(ss);
+      // 経費明細
+      const ec=D({sty:{background:"#0d1520",borderRadius:"6px",padding:"8px 10px",marginTop:"8px",fontSize:"11px",color:"#5b7fa6"}});
+      const erows=[];
+      if(s.mat>0)erows.push(["材料費","¥"+nf(s.mat)]);
+      if(s.con2>0)erows.push(["消耗品費","¥"+nf(s.con2)]);
+      if(s.sub>0)erows.push(["外注費","¥"+nf(Math.round(s.sub))]);
+      if(s.hw>0)erows.push(["🛣️ 高速代","¥"+nf(s.hw)]);
+      if(s.pk>0)erows.push(["🅿️ 駐車代","¥"+nf(s.pk)]);
+      erows.forEach(([l,v])=>{const r2=D({sty:{display:"flex",justifyContent:"space-between",marginBottom:"2px"}});r2.appendChild(Sp({},l));r2.appendChild(Sp({},v));ec.appendChild(r2);});
+      const et=D({sty:{display:"flex",justifyContent:"space-between",borderTop:"1px solid #1e2d44",marginTop:"4px",paddingTop:"4px",fontWeight:"700",color:"#7ada8a"}});et.appendChild(Sp({},"経費合計"));et.appendChild(Sp({},"¥"+nf(s.cost)));ec.appendChild(et);
+      card.appendChild(ec);
+      // 収支（パスワードロック対象）
+      if(s.contract>0&&(S.pw===""||S.pwUnlocked)){
+        const pg=D({cls:"profit-card",sty:{marginTop:"8px",marginBottom:"0"}});
+        const pgr=D({cls:"profit-grid"});
+        pgr.appendChild(mkPI("粗利額","¥"+nf(Math.round(grossP)),grossP>=0?"green":"red",grossP>=0?"green":"red"));
+        pgr.appendChild(mkPI("粗利率",pct(gr),gc(gr),gc(gr)));
+        pgr.appendChild(mkPI("利益率",pct(nr),nr>=20?"green":nr>=10?"yellow":"red",nr>=20?"green":nr>=10?"yellow":"red"));
+        pgr.appendChild(mkPI("一人あたり売上","¥"+nf(Math.round(pp)),"blue","blue"));
+        pg.appendChild(pgr);
+        if(gr>0){const bw=D({cls:"profit-bar-wrap"});bw.appendChild(D({cls:"profit-bar",sty:{width:Math.min(gr,100)+"%",background:gr>=30?"#4a8a6a":gr>=15?"#8a7a3a":"#8a3a3a"}}));pg.appendChild(bw);}
+        card.appendChild(pg);
+      }
+      con.appendChild(card);
+    });
+  }
+
+  if(S.tab==="profit"){
+    if(profitLocked){con.appendChild(PwScreen(S.showPwSetup?(S.pwSetupStep===0?"setup":"setup2"):"unlock"));}
+    else{
+      const hasPw=S.pw!=="";const hdr2=D({sty:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"15px"}});hdr2.appendChild(D({cls:"stt",sty:{marginBottom:"0"}},"💰 収支分析"));
+      hdr2.appendChild(!hasPw?Bt({sty:{padding:"6px 12px",background:"#131c2e",border:"1px solid #1e3050",borderRadius:"6px",color:"#5b7fa6",fontSize:"11px",cursor:"pointer"},onclick:()=>{S.showPwSetup=true;S.pwSetupStep=0;S.pwInput="";render();}},"🔒 ロック設定"):Bt({sty:{padding:"6px 12px",background:"#1a3a2a",border:"1px solid #2a5a3a",borderRadius:"6px",color:"#7ada8a",fontSize:"11px",cursor:"pointer"},onclick:()=>{S.pwUnlocked=false;S.tab="input";render();}},"🔒 ロックする"));con.appendChild(hdr2);
+      const nav2=D({cls:"mn"});const inn2=D({cls:"mi"});inn2.appendChild(Bt({cls:"nb",onclick:()=>{const[y,m]=S.month.split("-").map(Number);S.month=ym(new Date(y,m-2,1));render();}},"‹"));inn2.appendChild(D({cls:"ml"},S.month.replace("-","年")+"月"));inn2.appendChild(Bt({cls:"nb",onclick:()=>{const[y,m]=S.month.split("-").map(Number);S.month=ym(new Date(y,m,1));render();}},"›"));nav2.appendChild(inn2);con.appendChild(nav2);
+      if(mrs.length>0){
+        const mt2=mrs.reduce((a,r)=>{const p=calcProfit(r,S.master);a.contract+=p.contract;a.expense+=p.totalExpense;a.gross+=p.grossProfit;a.net+=p.netProfit;return a;},{contract:0,expense:0,gross:0,net:0});
+        const mgr=mt2.contract>0?mt2.gross/mt2.contract*100:0;const mnr=mt2.contract>0?mt2.net/mt2.contract*100:0;
+        const msum=D({cls:"profit-card",sty:{border:"1px solid #2a5caa55"}});msum.appendChild(D({cls:"profit-title"},S.month.replace("-","年")+"月 月間サマリー"));
+        const mg=D({cls:"profit-grid"});mg.appendChild(mkPI("請負合計","¥"+nf(mt2.contract),"blue","blue"));mg.appendChild(mkPI("経費合計","¥"+nf(mt2.expense),"yellow","yellow"));mg.appendChild(mkPI("粗利額","¥"+nf(Math.round(mt2.gross)),mt2.gross>=0?"green":"red",mt2.gross>=0?"green":"red"));mg.appendChild(mkPI("利益率",pct(mnr),mnr>=20?"green":mnr>=10?"yellow":"red",mnr>=20?"green":mnr>=10?"yellow":"red"));msum.appendChild(mg);
+        if(mgr>0){const bw=D({cls:"profit-bar-wrap"});bw.appendChild(D({cls:"profit-bar",sty:{width:Math.min(mgr,100)+"%",background:mgr>=30?"#4a8a6a":mgr>=15?"#8a7a3a":"#8a3a3a"}}));msum.appendChild(bw);}con.appendChild(msum);
+        mrs.filter(r=>Number(r.contractAmount||0)>0).forEach(r=>{const pc2=D({cls:"profit-card"});pc2.appendChild(D({cls:"profit-title"},r.date+" — "+(r.siteName||"")));pc2.appendChild(ProfitPanel(r));con.appendChild(pc2);});
+        const nc=mrs.filter(r=>!(Number(r.contractAmount||0)>0));if(nc.length>0)con.appendChild(D({sty:{fontSize:"11px",color:"#3a5070",textAlign:"center",padding:"8px 0"}},nc.length+"件は請負金額未入力のため除外"));
+      }else con.appendChild(D({cls:"emp"},"この月の日報はありません"));
+      if(S.showPwSetup)con.appendChild(PwScreen(S.pwSetupStep===0?"setup":"setup2"));
+    }
+  }
+
+  if(S.tab==="master"){
+    con.appendChild(D({cls:"stt"},"⚙️ マスタ管理"));const mtabs=D({cls:"mts"});Object.entries(mlabels).forEach(([k,l])=>{mtabs.appendChild(Bt({cls:"mt "+(S.mtab===k?"on":"off"),onclick:()=>{S.mtab=k;S.mval="";S.mval2="";S.mval3="";render();}},l));});con.appendChild(mtabs);const box=D({cls:"mb2"});
+    if(S.mtab==="siteContracts"){
+      box.appendChild(D({cls:"hint"},"現場ごとの請負金額（固定）を登録します。日報入力での金額が優先されます。"));
+      const ar=D({cls:"mar"});
+      const siteList=S.master.sites||[];
+      let ni;
+      if(siteList.length>0){
+        ni=h("select",{cls:"sel sel-sm",style:"flex:1"});ni.appendChild(h("option",{value:""},"-- 現場を選択 --"));siteList.forEach(s=>{const op=h("option",{value:s},s);ni.appendChild(op);});ni.addEventListener("change",e=>{S.mval=e.target.value;});
+      }else{ni=In({type:"text",cls:"inp inp-sm",style:"flex:1",value:S.mval||"",placeholder:"現場名"});ni.addEventListener("input",e=>{S.mval=e.target.value;});}
+      const ri=In({type:"number",cls:"inp inp-r inp-sm",style:"width:120px",value:S.mval2||"",placeholder:"請負金額(円)"});ri.addEventListener("input",e=>{S.mval2=e.target.value;});
+      ar.appendChild(ni);ar.appendChild(ri);
+      ar.appendChild(Bt({cls:"mab",onclick:()=>{const name=S.mval?.trim();if(!name)return;const sc={...(S.master.siteContracts||{}),[name]:Number(S.mval2||0)};S.master={...S.master,siteContracts:sc};sm(S.master);S.mval="";S.mval2="";render();}},"登録"));
+      box.appendChild(ar);
+      const sc=S.master.siteContracts||{};
+      if(!Object.keys(sc).length)box.appendChild(D({cls:"me"},"まだ登録されていません"));
+      else Object.entries(sc).forEach(([name,amt])=>{
+        const row=D({cls:"mi2"});row.appendChild(D({cls:"mi2-name"},name));row.appendChild(D({cls:"mi2-sub"},"¥"+nf(amt)));
+        row.appendChild(D({cls:"mi2-btns"},Bt({cls:"md",onclick:()=>{const ns={...sc};delete ns[name];S.master={...S.master,siteContracts:ns};sm(S.master);render();}},"✕")));
+        box.appendChild(row);
+      });
+    }else if(S.mtab==="subRates"){
+      box.appendChild(D({cls:"hint"},"外注会社ごとの常用単価（円/人）を登録します。"));const ar=D({cls:"mar"});const ni=In({type:"text",cls:"inp inp-sm",style:"flex:1",value:S.mval||"",placeholder:"会社名"});ni.addEventListener("input",e=>{S.mval=e.target.value;});const ri=In({type:"number",cls:"inp inp-r inp-sm",style:"width:100px",value:S.mval2||"",placeholder:"単価(円)"});ri.addEventListener("input",e=>{S.mval2=e.target.value;});ar.appendChild(ni);ar.appendChild(ri);ar.appendChild(Bt({cls:"mab",onclick:()=>{const name=S.mval?.trim();if(!name)return;const newRates={...(S.master.subRates||{}),[name]:Number(S.mval2||0)};const newSubs=[...new Set([...(S.master.subs||[]),name])];S.master={...S.master,subRates:newRates,subs:newSubs};sm(S.master);S.mval="";S.mval2="";render();}},"登録"));box.appendChild(ar);
+      const rates=S.master.subRates||{};if(!Object.keys(rates).length)box.appendChild(D({cls:"me"},"まだ登録されていません"));else Object.entries(rates).forEach(([name,rate],i)=>{const row=D({cls:"mi2"});row.appendChild(D({cls:"mi2-name"},name));row.appendChild(D({cls:"mi2-sub"},"¥"+nf(rate)+"/人"));row.appendChild(D({cls:"mi2-btns"},Bt({cls:"med",onclick:()=>{S.editModal={key:"subRates",index:i,val:name,val2:String(rate),val3:""};render();}},"編集"),Bt({cls:"md",onclick:()=>{const nr={...rates};delete nr[name];S.master={...S.master,subRates:nr};sm(S.master);render();}},"✕")));box.appendChild(row);});
+    }else if(S.mtab==="materialItems"||S.mtab==="consumableItems"){
+      const isM=S.mtab==="materialItems";box.appendChild(D({cls:"hint"},isM?"材料名・デフォルト数量・単価を登録します。":"消耗品名・デフォルト数量・単価を登録します。"));const ar=D({cls:"mar"});const ni=In({type:"text",cls:"inp inp-sm",style:"flex:1;min-width:80px",value:S.mval||"",placeholder:"品名"});ni.addEventListener("input",e=>{S.mval=e.target.value;});const qi=In({type:"number",cls:"inp inp-c inp-sm",style:"width:60px",value:S.mval2||"",placeholder:"数量"});qi.addEventListener("input",e=>{S.mval2=e.target.value;});const ui=In({type:"number",cls:"inp inp-r inp-sm",style:"width:90px",value:S.mval3||"",placeholder:"単価(円)"});ui.addEventListener("input",e=>{S.mval3=e.target.value;});ar.appendChild(ni);ar.appendChild(qi);ar.appendChild(ui);ar.appendChild(Bt({cls:"mab",onclick:()=>{const name=S.mval?.trim();if(!name)return;const items={...(S.master[S.mtab]||{}),[name]:{qty:Number(S.mval2||1),unit:Number(S.mval3||0)}};S.master={...S.master,[S.mtab]:items};sm(S.master);S.mval="";S.mval2="";S.mval3="";render();}},"登録"));box.appendChild(ar);
+      box.appendChild(D({sty:{display:"grid",gridTemplateColumns:"1fr 50px 80px 80px",gap:"5px",padding:"4px 10px",fontSize:"10px",color:"#4a6080"}},Sp({},"品名"),Sp({sty:{textAlign:"center"}},"数量"),Sp({sty:{textAlign:"right"}},"単価"),Sp({})));
+      const items=S.master[S.mtab]||{};if(!Object.keys(items).length)box.appendChild(D({cls:"me"},"まだ登録されていません"));else Object.entries(items).forEach(([name,v],i)=>{const row=D({cls:"mi2"});row.appendChild(D({cls:"mi2-name"},name));row.appendChild(Sp({cls:"mi2-sub"},"×"+v.qty));row.appendChild(Sp({cls:"mi2-sub"},"¥"+nf(v.unit)));row.appendChild(D({cls:"mi2-btns"},Bt({cls:"med",onclick:()=>{S.editModal={key:S.mtab,index:i,val:name,val2:String(v.qty),val3:String(v.unit)};render();}},"編集"),Bt({cls:"md",onclick:()=>{const ni2={...items};delete ni2[name];S.master={...S.master,[S.mtab]:ni2};sm(S.master);render();}},"✕")));box.appendChild(row);});
+    }else{
+      const ar=D({cls:"mar"});const ai=In({type:"text",cls:"inp",value:S.mval||"",placeholder:mlabels[S.mtab]+"を追加"});ai.addEventListener("input",e=>{S.mval=e.target.value;});ai.addEventListener("keydown",e=>{if(e.key==="Enter")addMaster();});ar.appendChild(ai);ar.appendChild(Bt({cls:"mab",onclick:addMaster},"追加"));box.appendChild(ar);
+      const list=S.master[S.mtab]||[];if(!list.length)box.appendChild(D({cls:"me"},"まだ登録されていません"));else list.forEach((item,i)=>{const row=D({cls:"mi2"});row.appendChild(D({cls:"mi2-name"},item));row.appendChild(D({cls:"mi2-btns"},Bt({cls:"med",onclick:()=>{S.editModal={key:S.mtab,index:i,val:item,val2:"",val3:""};render();}},"編集"),Bt({cls:"md",onclick:()=>{S.master={...S.master,[S.mtab]:S.master[S.mtab].filter((_,x)=>x!==i)};sm(S.master);render();}},"✕")));box.appendChild(row);});
+    }
+    con.appendChild(box);
+  }
+
+  app.appendChild(con);const modal=EditModal();if(modal)app.appendChild(modal);if(S.toast)app.appendChild(D({cls:"toast "+S.toast.t},S.toast.msg));
+  if(S.cdel){const ov=D({cls:"ov"});const bx=D({cls:"cfb"});bx.appendChild(D({cls:"cft"},"削除しますか？"));bx.appendChild(D({cls:"cfs"},"この操作は取り消せません"));const cr=D({cls:"cfr"});cr.appendChild(Bt({cls:"cfd",onclick:()=>{const n={...S.data};delete n[S.cdel];S.data=n;sd(n);toast("削除しました");S.cdel=null;render();}},"削除"));cr.appendChild(Bt({cls:"cfc",onclick:()=>{S.cdel=null;render();}},"キャンセル"));bx.appendChild(cr);ov.appendChild(bx);app.appendChild(ov);}
+}
+
+function toast(msg,t="ok"){clearTimeout(S._tt);S.toast={msg,t};render();S._tt=setTimeout(()=>{S.toast=null;render();},2500);}
+function saveReport(){if(!S.er.siteName){toast("現場名を入力してください","ng");return;}if(!S.er.date){toast("日付を選択してください","ng");return;}const id=S.eid||S.er.id;S.data={...S.data,[id]:{...S.er,id}};sd(S.data);toast(S.eid?"更新しました":"日報を保存しました");S.er=eR();S.eid=null;S.tab="list";render();}
+function addMaster(){const v=S.mval?.trim();if(!v)return;S.master={...S.master,[S.mtab]:[...(S.master[S.mtab]||[]),v]};sm(S.master);S.mval="";render();}
+
+render();
+</script>
+</body>
+</html>
