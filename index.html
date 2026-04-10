@@ -18,32 +18,25 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--bg);color:var(--text);font-family:'Hiragino Kaku Gothic ProN','Meiryo',sans-serif;font-size:14px;min-height:100vh;}
-
 .header{background:var(--bg2);border-bottom:1px solid var(--border);padding:12px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100;}
 .header-title{font-size:16px;font-weight:700;color:var(--text);flex:1;}
 .header-edit-btn{background:none;border:1px solid var(--border2);border-radius:6px;color:var(--text2);font-size:11px;padding:4px 10px;cursor:pointer;}
-
 .tabs{display:flex;background:var(--bg2);border-bottom:1px solid var(--border);overflow-x:auto;}
 .tab{flex:1;min-width:60px;padding:10px 4px;text-align:center;font-size:12px;color:var(--text3);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;white-space:nowrap;}
 .tab.active{color:var(--accent);border-bottom-color:var(--accent);}
-
 .content{padding:16px;max-width:600px;margin:0 auto;}
-
 .month-nav{display:flex;align-items:center;gap:8px;margin-bottom:16px;}
 .month-btn{background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--text2);padding:6px 14px;cursor:pointer;font-size:13px;}
 .month-label{flex:1;text-align:center;font-size:15px;font-weight:600;}
-
 .card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:12px;}
 .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
 .card-title{font-size:13px;font-weight:600;color:var(--text2);}
-
 label{display:block;font-size:11px;color:var(--text3);margin-bottom:4px;margin-top:12px;}
 label:first-child{margin-top:0;}
 input,select,textarea{width:100%;padding:9px 12px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-size:14px;outline:none;font-family:inherit;}
 input:focus,select:focus,textarea:focus{border-color:var(--accent);}
 textarea{resize:vertical;min-height:60px;}
 select option{background:var(--bg2);}
-
 .btn{padding:9px 18px;border-radius:7px;border:none;font-size:13px;cursor:pointer;font-weight:600;}
 .btn-primary{background:var(--accent);color:#fff;}
 .btn-danger{background:none;border:1px solid var(--red);color:var(--red);padding:5px 10px;font-size:12px;border-radius:5px;cursor:pointer;}
@@ -51,9 +44,6 @@ select option{background:var(--bg2);}
 .btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
 .btn-sm{padding:4px 10px;font-size:12px;}
 .btn-map{background:var(--bg3);border:1px solid var(--border2);border-radius:6px;color:#34d399;font-size:12px;padding:7px 12px;cursor:pointer;white-space:nowrap;flex-shrink:0;}
-.btn-map:hover{border-color:#34d399;}
-
-/* 住所 */
 .addr-wrap{position:relative;}
 .addr-row{display:flex;gap:6px;align-items:flex-start;}
 .addr-candidates{position:absolute;top:100%;left:0;right:0;background:var(--bg2);border:1px solid var(--border2);border-radius:6px;z-index:200;max-height:200px;overflow-y:auto;margin-top:2px;}
@@ -61,31 +51,19 @@ select option{background:var(--bg2);}
 .addr-candidate:last-child{border-bottom:none;}
 .addr-candidate:hover{background:var(--bg3);}
 .addr-searching{padding:10px 12px;color:var(--text3);font-size:12px;}
-
-/* 請負金額 */
 .contract-box{background:var(--bg3);border:1px solid var(--accent2);border-radius:8px;padding:12px;margin-bottom:10px;}
 .contract-amount{font-size:20px;font-weight:700;color:var(--green);}
-.contract-adj{display:flex;gap:6px;align-items:center;margin-top:8px;}
-.contract-adj-label{font-size:11px;color:var(--text3);white-space:nowrap;}
-.adj-row{display:flex;gap:6px;align-items:center;margin-top:6px;}
-.adj-type{width:70px;padding:5px 8px;font-size:12px;}
-
-/* detail table */
 .detail-table{width:100%;border-collapse:collapse;margin-top:6px;}
 .detail-table th{font-size:11px;color:var(--text3);padding:4px 6px;text-align:left;border-bottom:1px solid var(--border);}
 .detail-table td{padding:3px 3px;}
-.detail-table input{padding:5px 8px;font-size:13px;}
+.detail-table input,.detail-table select{padding:5px 8px;font-size:13px;}
 .sub-total{font-size:12px;color:var(--text2);text-align:right;margin-top:4px;}
-
-/* summary */
 .summary-panel{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:14px;}
 .summary-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);font-size:13px;}
 .summary-row:last-child{border-bottom:none;font-weight:700;font-size:14px;}
 .summary-label{color:var(--text2);}
 .summary-value.green{color:var(--green);}
 .summary-value.red{color:var(--red);}
-
-/* report list */
 .report-item{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:8px;cursor:pointer;}
 .report-item:hover{border-color:var(--border2);}
 .report-item-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;}
@@ -95,26 +73,20 @@ select option{background:var(--bg2);}
 .badge-green{background:#14532d44;color:var(--green);}
 .badge-red{background:#7f1d1d44;color:var(--red);}
 .badge-blue{background:#1e3a8a44;color:#60a5fa;}
-
-/* modal */
 .modal-overlay{position:fixed;inset:0;background:#00000088;z-index:500;display:flex;align-items:flex-end;}
 .modal{background:var(--bg2);border-radius:14px 14px 0 0;padding:20px 16px 32px;width:100%;max-height:90vh;overflow-y:auto;}
 .modal-title{font-size:15px;font-weight:700;margin-bottom:16px;}
 .modal-close{float:right;background:none;border:none;color:var(--text3);font-size:20px;cursor:pointer;}
-
-/* master */
 .master-item{display:flex;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);gap:8px;}
 .master-item span{flex:1;font-size:13px;}
-
-/* breakdown */
 .breakdown-item{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px;}
 .breakdown-name{color:var(--text2);}
 .breakdown-val.green{color:var(--green);}
 .breakdown-val.red{color:var(--red);}
-
 .title-input{width:100%;padding:10px 12px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-size:16px;font-weight:600;outline:none;}
-
 .loading{text-align:center;padding:40px;color:var(--text3);font-size:13px;}
+/* 高速選択ドロップダウン */
+.hwy-select{padding:5px 8px;font-size:12px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;color:var(--text);}
 @media(min-width:600px){.content{padding:20px;}}
 </style>
 </head>
@@ -122,12 +94,17 @@ select option{background:var(--bg2);}
 <div id="app"></div>
 <script>
 // ===================== STORAGE =====================
-// v3と同じキーを使い、データ消失を防ぐ
+// v3/v4と同じキーを維持（データ引き継ぎ）
 const SK='gisho_nippo_v3';
 const MK='gisho_master_v3';
 const CK='gisho_clients_v3';
 const TK='gisho_title_v1';
-const SITEMK='gisho_sitemaster_v1'; // 現場マスタ（請負金額含む）
+const SITEMK='gisho_sitemaster_v1';
+// 新規追加キー
+const SUBMK='gisho_submaster_v1';   // {会社名:{unitPrice:0}}
+const MATMK='gisho_matmaster_v1';   // {品名:{qty:0,price:0}}
+const CONMK='gisho_conmaster_v1';   // {品名:{qty:0,price:0}}
+const HWYMK='gisho_hwymaster_v1';   // [{id,from,to,oneway,roundtrip}]
 
 const load=k=>{try{const r=localStorage.getItem(k);return r?JSON.parse(r):null;}catch{return null;}};
 const save=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));}catch{}};
@@ -140,9 +117,16 @@ const loadClients=()=>load(CK)||{};
 const saveClients=c=>save(CK,c);
 const loadTitle=()=>load(TK)||'株式会社技匠 作業日報';
 const saveTitle=t=>save(TK,t);
-// 現場マスタ: {現場名: {address:'', contractAmount:0, adjustments:[]}}
 const loadSiteMaster=()=>load(SITEMK)||{};
 const saveSiteMaster=s=>save(SITEMK,s);
+const loadSubMaster=()=>load(SUBMK)||{};       // {会社名:{unitPrice}}
+const saveSubMaster=s=>save(SUBMK,s);
+const loadMatMaster=()=>load(MATMK)||{};       // {品名:{qty,price}}
+const saveMatMaster=s=>save(MATMK,s);
+const loadConMaster=()=>load(CONMK)||{};
+const saveConMaster=s=>save(CONMK,s);
+const loadHwyMaster=()=>load(HWYMK)||[];       // [{id,from,to,oneway,roundtrip}]
+const saveHwyMaster=s=>save(HWYMK,s);
 
 // ===================== HELPERS =====================
 const fmt=n=>Math.round(n).toLocaleString('ja-JP');
@@ -151,22 +135,18 @@ const ymd=d=>`${ym(d)}-${String(d.getDate()).padStart(2,'0')}`;
 const today=()=>ymd(new Date());
 const newId=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 const newRow=()=>({id:newId(),name:'',qty:'',price:''});
-const newTRow=()=>({id:newId(),name:'',price:''});// 高速・駐車場用（単価のみ）
+const newTRow=()=>({id:newId(),name:'',price:''});
 
 const calcRows=rows=>rows.reduce((s,r)=>{
-  const q=parseFloat(r.qty)||0,p=parseFloat(r.price)||0;
-  return s+q*p;
+  const q=parseFloat(r.qty)||0,p=parseFloat(r.price)||0;return s+q*p;
 },0);
 const calcTRows=rows=>rows.reduce((s,r)=>s+(parseFloat(r.price)||0),0);
 
-// 請負金額（現場マスタから）+ 調整額
 const contractTotal=(siteName,siteMaster)=>{
-  const sm=siteMaster[siteName];
-  if(!sm) return 0;
+  const sm=siteMaster[siteName];if(!sm) return 0;
   const base=parseFloat(sm.contractAmount)||0;
   const adj=(sm.adjustments||[]).reduce((s,a)=>{
-    const v=parseFloat(a.amount)||0;
-    return a.type==='add'?s+v:s-v;
+    const v=parseFloat(a.amount)||0;return a.type==='add'?s+v:s-v;
   },0);
   return base+adj;
 };
@@ -198,6 +178,10 @@ let state={
   master:loadMaster(),
   clients:loadClients(),
   siteMaster:loadSiteMaster(),
+  subMaster:loadSubMaster(),
+  matMaster:loadMatMaster(),
+  conMaster:loadConMaster(),
+  hwyMaster:loadHwyMaster(),
   title:loadTitle(),
   editingId:null,
   showTitleModal:false,
@@ -207,15 +191,10 @@ let state={
 };
 
 // ===================== RENDER =====================
-function render(){
-  document.getElementById('app').innerHTML=buildApp();
-  attachEvents();
-}
+function render(){document.getElementById('app').innerHTML=buildApp();attachEvents();}
 
 function buildApp(){
-  return`
-    ${buildHeader()}
-    ${buildTabs()}
+  return`${buildHeader()}${buildTabs()}
     <div class="content">
       ${state.tab==='home'?buildHome():
         state.tab==='new'?buildForm(null):
@@ -225,8 +204,7 @@ function buildApp(){
         state.tab==='settings'?buildSettings():''}
     </div>
     ${state.editingId?buildEditModal():''}
-    ${state.showTitleModal?buildTitleModal():''}
-  `;
+    ${state.showTitleModal?buildTitleModal():''}`;
 }
 
 function buildHeader(){
@@ -235,7 +213,6 @@ function buildHeader(){
     <button class="header-edit-btn" id="btn-edit-title">✏️ タイトル</button>
   </div>`;
 }
-
 function buildTabs(){
   const tabs=[{id:'home',label:'🏠 ホーム'},{id:'new',label:'＋ 新規'},{id:'reports',label:'📋 日報'},{id:'summary',label:'💹 収支'},{id:'master',label:'⚙ マスタ'},{id:'settings',label:'🔧 設定'}];
   return`<div class="tabs">${tabs.map(t=>`<button class="tab${state.tab===t.id?' active':''}" data-tab="${t.id}">${t.label}</button>`).join('')}</div>`;
@@ -245,7 +222,6 @@ function buildTabs(){
 function buildHome(){
   const rpts=Object.values(state.reports).filter(r=>r.date&&r.date.startsWith(state.ym));
   const totalExp=rpts.reduce((s,r)=>s+calcExp(r),0);
-  // 収支は現場単位の請負金額で計算（同月の現場をユニーク化）
   const sites=[...new Set(rpts.map(r=>r.site).filter(Boolean))];
   const totalContract=sites.reduce((s,site)=>s+contractTotal(site,state.siteMaster),0);
   const profit=totalContract-totalExp;
@@ -264,15 +240,21 @@ function buildHome(){
       <div class="summary-row"><span class="summary-label">粗利益</span><span class="summary-value ${profit>=0?'green':'red'}">¥${fmt(profit)}</span></div>
     </div>
     <div style="font-size:12px;color:var(--text3);margin-bottom:8px;">直近の日報</div>
-    ${recent.length===0?'<div class="loading">日報がまだありません</div>':recent.map(r=>buildReportItem(r)).join('')}
-  `;
+    ${recent.length===0?'<div class="loading">日報がまだありません</div>':recent.map(r=>buildReportItem(r)).join('')}`;
 }
 
 function calcExp(r){
+  // 外注費も経費に含める
+  const subCost=(r.subs||[]).reduce((s,sub)=>{
+    const sm=state.subMaster[sub.name];
+    if(!sm||!sm.unitPrice) return s;
+    return s+(parseFloat(sm.unitPrice)||0)*(parseFloat(sub.count)||0);
+  },0);
   return calcRows(r.materials||[])
        +calcRows(r.consumables||[])
        +calcTRows(r.highways||[])
-       +calcTRows(r.parkings||[]);
+       +calcTRows(r.parkings||[])
+       +subCost;
 }
 
 // ── FORM ──
@@ -281,10 +263,8 @@ function buildForm(id){
     id:newId(),date:today(),site:'',address:'',distance:'',client:'',
     workers:[{id:newId(),name:'',count:''}],
     subs:[{id:newId(),name:'',count:''}],
-    work:'',
-    materials:[newRow()],consumables:[newRow()],
-    highways:[newTRow()],parkings:[newTRow()],
-    note:''
+    work:'',materials:[newRow()],consumables:[newRow()],
+    highways:[newTRow()],parkings:[newTRow()],note:''
   };
   const mats=r.materials||[newRow()];
   const cons=r.consumables||[newRow()];
@@ -297,6 +277,7 @@ function buildForm(id){
   const contractBase=parseFloat(sm.contractAmount)||0;
   const adjs=sm.adjustments||[];
   const contractTot=contractTotal(siteName,state.siteMaster);
+  const hwyMaster=state.hwyMaster||[];
 
   return`
     <div class="card">
@@ -312,7 +293,7 @@ function buildForm(id){
           <input type="text" id="f-address" value="${r.address||''}" placeholder="住所を入力（候補が出ます）" autocomplete="off">
           <div class="addr-candidates" id="addr-candidates" style="display:none;"></div>
         </div>
-        <button class="btn-map" id="btn-map-open" title="Googleマップで確認">🗺 マップ</button>
+        <button class="btn-map" id="btn-map-open">🗺 マップ</button>
       </div>
       <label>移動距離（km）</label>
       <input type="number" id="f-distance" value="${r.distance||''}" placeholder="0">
@@ -321,7 +302,6 @@ function buildForm(id){
       <datalist id="list-clients">${masterClients.map(c=>`<option value="${c}">`).join('')}</datalist>
     </div>
 
-    <!-- 請負金額（現場マスタから参照） -->
     <div class="card">
       <div class="card-title">請負金額</div>
       ${siteName?`
@@ -330,49 +310,33 @@ function buildForm(id){
           <div class="contract-amount">¥${fmt(contractBase)}</div>
           ${adjs.length>0?`
             <div style="margin-top:8px;font-size:12px;color:var(--text3);">調整履歴</div>
-            ${adjs.map((a,i)=>`
+            ${adjs.map(a=>`
               <div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0;border-bottom:1px solid var(--border);">
                 <span style="color:var(--text2);">${a.label||'調整'}</span>
                 <span style="color:${a.type==='add'?'var(--green)':'var(--red)'};">${a.type==='add'?'+':'-'}¥${fmt(Math.abs(parseFloat(a.amount)||0))}</span>
-              </div>
-            `).join('')}
+              </div>`).join('')}
             <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:700;padding:6px 0;">
               <span>確定請負金額</span><span style="color:var(--green);">¥${fmt(contractTot)}</span>
             </div>
           `:''}
         </div>
-        <div style="font-size:11px;color:var(--text3);margin-top:4px;">請負金額の変更・調整はマスタタブの「現場」から行ってください</div>
-      `:`
-        <div style="font-size:13px;color:var(--text3);padding:10px 0;">現場名を入力すると請負金額が表示されます。<br>マスタタブの「現場」で登録してください。</div>
-      `}
+        <div style="font-size:11px;color:var(--text3);">変更はマスタタブ→現場から行ってください</div>
+      `:`<div style="font-size:13px;color:var(--text3);padding:10px 0;">現場名を入力するとマスタの請負金額が表示されます</div>`}
     </div>
 
     <div class="card">
       <div class="card-title">作業員</div>
       <div id="workers-wrap">
-        ${(r.workers||[{id:newId(),name:'',count:''}]).map((w,i)=>`
-          <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;" data-worker-idx="${i}">
-            <input type="text" class="w-name" value="${w.name||''}" placeholder="作業員名" list="list-workers" style="flex:1;padding:9px 12px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-size:14px;outline:none;">
-            <datalist id="list-workers">${(state.master.workers||[]).map(m=>`<option value="${m}">`).join('')}</datalist>
-            <input type="number" class="w-count" value="${w.count||''}" placeholder="人数" style="width:70px;padding:9px 12px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-size:14px;outline:none;">
-            <button class="btn-danger" onclick="removeWorker(${i})">✕</button>
-          </div>
-        `).join('')}
+        ${(r.workers||[]).map((w,i)=>buildPersonRow('worker',w,i)).join('')}
       </div>
       <button class="btn-ghost" id="btn-add-worker">＋ 作業員追加</button>
     </div>
 
     <div class="card">
       <div class="card-title">外注</div>
+      <div style="font-size:11px;color:var(--text3);margin-bottom:8px;">マスタに常用単価を登録しておくと外注費が自動計算されます</div>
       <div id="subs-wrap">
-        ${(r.subs||[{id:newId(),name:'',count:''}]).map((s,i)=>`
-          <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;" data-sub-idx="${i}">
-            <input type="text" class="s-name" value="${s.name||''}" placeholder="外注会社名" list="list-subs" style="flex:1;padding:9px 12px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-size:14px;outline:none;">
-            <datalist id="list-subs">${(state.master.subs||[]).map(m=>`<option value="${m}">`).join('')}</datalist>
-            <input type="number" class="s-count" value="${s.count||''}" placeholder="人数" style="width:70px;padding:9px 12px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-size:14px;outline:none;">
-            <button class="btn-danger" onclick="removeSub(${i})">✕</button>
-          </div>
-        `).join('')}
+        ${(r.subs||[]).map((s,i)=>buildSubRow(s,i)).join('')}
       </div>
       <button class="btn-ghost" id="btn-add-sub">＋ 外注追加</button>
     </div>
@@ -408,6 +372,22 @@ function buildForm(id){
 
     <div class="card">
       <div class="card-title">高速代</div>
+      ${hwyMaster.length>0?`
+        <div style="margin-bottom:8px;">
+          <div style="font-size:11px;color:var(--text3);margin-bottom:4px;">マスタから選んで追加</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;" id="hwy-presets">
+            ${hwyMaster.map(h=>`
+              <button class="btn-ghost btn-sm hwy-preset-btn"
+                data-label="${h.from}→${h.to}"
+                data-oneway="${h.oneway||0}"
+                data-roundtrip="${h.roundtrip||0}"
+                style="margin-top:0;">
+                ${h.from}→${h.to}
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      `:''}
       <table class="detail-table">
         <thead><tr><th>区間・メモ</th><th>金額</th><th></th></tr></thead>
         <tbody id="highways-body">
@@ -415,7 +395,7 @@ function buildForm(id){
         </tbody>
       </table>
       <div class="sub-total" id="hwy-total">合計: ¥${fmt(calcTRows(hwys))}</div>
-      <button class="btn-ghost" id="btn-add-hwy">＋ 行追加</button>
+      <button class="btn-ghost" id="btn-add-hwy">＋ 手動追加</button>
     </div>
 
     <div class="card">
@@ -438,17 +418,57 @@ function buildForm(id){
     <div style="display:flex;gap:10px;margin-top:4px;margin-bottom:24px;">
       <button class="btn btn-primary" style="flex:1;" id="btn-save-form" data-id="${r.id}">保存</button>
       ${id?`<button class="btn-danger" id="btn-delete-form" data-id="${id}">削除</button>`:''}
+    </div>`;
+}
+
+// 作業員行
+function buildPersonRow(type,row,i){
+  const isWorker=type==='worker';
+  const prefix=isWorker?'w':'s';
+  const listId=isWorker?'list-workers':'list-subs';
+  const placeholder=isWorker?'作業員名':'外注会社名';
+  const masterItems=isWorker?(state.master.workers||[]):(state.master.subs||[]);
+  return`<div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;" data-${prefix}-idx="${i}">
+    <input type="text" class="${prefix}-name" value="${row.name||''}" placeholder="${placeholder}" list="${listId}" style="flex:1;padding:9px 12px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-size:14px;outline:none;">
+    <datalist id="${listId}">${masterItems.map(m=>`<option value="${m}">`).join('')}</datalist>
+    <input type="number" class="${prefix}-count" value="${row.count||''}" placeholder="人数" style="width:70px;padding:9px 12px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-size:14px;outline:none;">
+    <button class="btn-danger" onclick="${isWorker?'removeWorker':'removeSub'}(${i})">✕</button>
+  </div>`;
+}
+
+// 外注行（常用単価表示付き）
+function buildSubRow(row,i){
+  const sm=state.subMaster[row.name]||{};
+  const unitPrice=sm.unitPrice?`¥${fmt(sm.unitPrice)}/人工`:'';
+  const count=parseFloat(row.count)||0;
+  const total=sm.unitPrice&&count?(parseFloat(sm.unitPrice)*count):'';
+  return`<div style="margin-bottom:8px;" data-s-idx="${i}">
+    <div style="display:flex;gap:8px;align-items:center;">
+      <input type="text" class="s-name" value="${row.name||''}" placeholder="外注会社名" list="list-subs"
+        style="flex:1;padding:9px 12px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-size:14px;outline:none;"
+        oninput="refreshSubRow(${i},this.closest('[data-s-idx]'))">
+      <datalist id="list-subs">${(state.master.subs||[]).map(m=>`<option value="${m}">`).join('')}</datalist>
+      <input type="number" class="s-count" value="${row.count||''}" placeholder="人数"
+        style="width:70px;padding:9px 12px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-size:14px;outline:none;"
+        oninput="refreshSubRow(${i},this.closest('[data-s-idx]'))">
+      <button class="btn-danger" onclick="removeSub(${i})">✕</button>
     </div>
-  `;
+    <div class="s-info-${i}" style="font-size:11px;color:var(--text3);margin-top:2px;padding-left:4px;">
+      ${unitPrice?`単価: ${unitPrice}${total?' / 小計: ¥'+fmt(total):''}`:sm.unitPrice===undefined&&row.name?'（マスタに単価未登録）':''}
+    </div>
+  </div>`;
 }
 
 function buildDetailRow(type,row,idx){
-  const matList=(state.master.materials||[]).map(m=>`<option value="${m}">`).join('');
-  const conList=(state.master.consumables||[]).map(m=>`<option value="${m}">`).join('');
+  const master=type==='mat'?state.matMaster:state.conMaster;
+  const masterList=type==='mat'?(state.master.materials||[]):(state.master.consumables||[]);
   const listId=type==='mat'?'list-mat-names':'list-con-names';
-  const listHtml=type==='mat'?`<datalist id="${listId}">${matList}</datalist>`:`<datalist id="${listId}">${conList}</datalist>`;
   return`<tr data-${type}-idx="${idx}">
-    <td>${listHtml}<input type="text" class="${type}-name" value="${row.name||''}" placeholder="品名" list="${listId}"></td>
+    <td>
+      <datalist id="${listId}">${masterList.map(m=>`<option value="${m}">`).join('')}</datalist>
+      <input type="text" class="${type}-name" value="${row.name||''}" placeholder="品名" list="${listId}"
+        oninput="fillMasterDefaults('${type}',${idx},this.value)">
+    </td>
     <td><input type="number" class="${type}-qty" value="${row.qty||''}" placeholder="1" style="width:60px;"></td>
     <td><input type="number" class="${type}-price" value="${row.price||''}" placeholder="0"></td>
     <td><button class="btn-danger" style="padding:3px 7px;" onclick="removeDetailRow('${type}',${idx})">✕</button></td>
@@ -474,8 +494,7 @@ function buildReports(){
       <div class="month-label">${ymLabel}</div>
       <button class="month-btn" id="btn-next-ym">＞</button>
     </div>
-    ${rpts.length===0?'<div class="loading">この月の日報はありません</div>':rpts.map(r=>buildReportItem(r,true)).join('')}
-  `;
+    ${rpts.length===0?'<div class="loading">この月の日報はありません</div>':rpts.map(r=>buildReportItem(r,true)).join('')}`;
 }
 
 function buildReportItem(r,clickable=false){
@@ -500,29 +519,22 @@ function buildSummary(){
   const allRpts=Object.values(state.reports);
   const ymDate=new Date(state.reportFilterYm+'-01');
   const ymLabel=`${ymDate.getFullYear()}年${ymDate.getMonth()+1}月`;
-
   let filtered=allRpts.filter(r=>{
     if(!r.date) return false;
-    if(state.reportFilter==='all') return r.date.startsWith(state.reportFilterYm);
-    return r.client===state.reportFilter&&r.date.startsWith(state.reportFilterYm);
+    return state.reportFilter==='all'?r.date.startsWith(state.reportFilterYm):r.client===state.reportFilter&&r.date.startsWith(state.reportFilterYm);
   });
-
   const sites=[...new Set(filtered.map(r=>r.site).filter(Boolean))];
   const totalContract=sites.reduce((s,site)=>s+contractTotal(site,state.siteMaster),0);
   const totalExp=filtered.reduce((s,r)=>s+calcExp(r),0);
   const profit=totalContract-totalExp;
   const margin=totalContract>0?(profit/totalContract*100).toFixed(1):'0.0';
-
-  // 元請け別
   const clientSummary={};
   allRpts.filter(r=>r.date&&r.date.startsWith(state.reportFilterYm)).forEach(r=>{
     const c=r.client||'（未設定）';
     if(!clientSummary[c]) clientSummary[c]={sites:new Set(),exp:0,count:0};
     if(r.site) clientSummary[c].sites.add(r.site);
-    clientSummary[c].exp+=calcExp(r);
-    clientSummary[c].count++;
+    clientSummary[c].exp+=calcExp(r);clientSummary[c].count++;
   });
-
   return`
     <div class="month-nav">
       <button class="month-btn" id="btn-prev-ym-s">＜</button>
@@ -542,8 +554,7 @@ function buildSummary(){
     <div style="font-size:12px;color:var(--text3);margin-bottom:8px;">元請け別（${ymLabel}）</div>
     ${Object.entries(clientSummary).map(([name,d])=>{
       const ct2=[...d.sites].reduce((s,site)=>s+contractTotal(site,state.siteMaster),0);
-      const p=ct2-d.exp;
-      const m=ct2>0?(p/ct2*100).toFixed(1):'0.0';
+      const p=ct2-d.exp;const m=ct2>0?(p/ct2*100).toFixed(1):'0.0';
       const cd=state.clients[name];
       return`<div class="card" style="margin-bottom:10px;">
         <div class="card-header">
@@ -555,14 +566,13 @@ function buildSummary(){
         <div class="breakdown-item"><span class="breakdown-name">粗利益</span><span class="breakdown-val ${p>=0?'green':'red'}">¥${fmt(p)}</span></div>
         <div class="breakdown-item"><span class="breakdown-name">粗利率</span><span class="breakdown-val ${p>=0?'green':'red'}">${m}%</span></div>
       </div>`;
-    }).join('')||'<div class="loading">この月のデータはありません</div>'}
-  `;
+    }).join('')||'<div class="loading">この月のデータはありません</div>'}`;
 }
 
 // ── MASTER ──
 function buildMaster(){
-  const tabs=['sites','clients','workers','subs','materials','consumables'];
-  const labels={sites:'現場',clients:'元請け',workers:'作業員',subs:'外注',materials:'材料名',consumables:'消耗品名'};
+  const tabs=['sites','clients','subs','workers','materials','consumables','highways'];
+  const labels={sites:'現場',clients:'元請け',subs:'外注',workers:'作業員',materials:'材料名',consumables:'消耗品名',highways:'高速区間'};
   const t=state.showMasterTab;
   const items=state.master[t]||[];
   return`
@@ -571,14 +581,18 @@ function buildMaster(){
     </div>
     ${t==='sites'?buildSitesMaster(items):
       t==='clients'?buildClientsMaster(items):
+      t==='subs'?buildSubsMaster(items):
+      t==='materials'?buildMatConMaster('mat',items):
+      t==='consumables'?buildMatConMaster('con',items):
+      t==='highways'?buildHighwaysMaster():
       `<div style="display:flex;gap:8px;margin-bottom:12px;">
         <input type="text" id="master-new-val" placeholder="${labels[t]}名を入力" style="flex:1;">
         <button class="btn btn-primary btn-sm" id="btn-master-add">追加</button>
       </div>
-      ${items.map((item,i)=>`<div class="master-item"><span>${item}</span><button class="btn-danger" data-master-del="${i}">削除</button></div>`).join('')||'<div class="loading">まだ登録がありません</div>'}`}
-  `;
+      ${items.map((item,i)=>`<div class="master-item"><span>${item}</span><button class="btn-danger" data-master-del="${i}">削除</button></div>`).join('')||'<div class="loading">まだ登録がありません</div>'}`}`;
 }
 
+// 現場マスタ
 function buildSitesMaster(items){
   const sm=state.siteMaster;
   return`
@@ -599,7 +613,7 @@ function buildSitesMaster(items){
           <input type="number" class="site-contract" data-site="${site}" value="${d.contractAmount||''}" placeholder="0" style="flex:1;">
           <button class="btn btn-primary btn-sm site-contract-save" data-site="${site}">保存</button>
         </div>
-        <label style="margin-top:10px;">追加・減算（別途工事・値引き等）</label>
+        <label style="margin-top:10px;">追加・減算</label>
         <div id="adjs-${i}">
           ${adjs.map((a,ai)=>`
             <div style="display:flex;gap:6px;align-items:center;margin-bottom:6px;">
@@ -610,8 +624,7 @@ function buildSitesMaster(items){
               <input type="text" class="adj-label" data-site="${site}" data-ai="${ai}" value="${a.label||''}" placeholder="内容" style="flex:1;padding:5px 8px;font-size:12px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;color:var(--text);">
               <input type="number" class="adj-amount" data-site="${site}" data-ai="${ai}" value="${a.amount||''}" placeholder="金額" style="width:90px;padding:5px 8px;font-size:12px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;color:var(--text);">
               <button class="btn-danger" style="padding:3px 7px;" onclick="removeAdj('${site}',${ai})">✕</button>
-            </div>
-          `).join('')}
+            </div>`).join('')}
         </div>
         <div style="display:flex;gap:8px;margin-top:4px;">
           <button class="btn-ghost btn-sm" onclick="addAdj('${site}')">＋ 調整追加</button>
@@ -619,10 +632,10 @@ function buildSitesMaster(items){
         </div>
         <div style="margin-top:8px;font-size:13px;font-weight:700;color:var(--green);">確定請負金額: ¥${fmt(contractTotal(site,sm))}</div>
       </div>`;
-    }).join('')||'<div class="loading">まだ登録がありません</div>'}
-  `;
+    }).join('')||'<div class="loading">まだ登録がありません</div>'}`;
 }
 
+// 元請けマスタ
 function buildClientsMaster(items){
   const cd=state.clients;
   return`
@@ -636,21 +649,108 @@ function buildClientsMaster(items){
           <span style="flex:1;font-weight:600;">${item}</span>
           <button class="btn-danger" data-master-del="${i}">削除</button>
         </div>
-        <label>締め日（毎月○日締め）</label>
+        <label>締め日</label>
         <div style="display:flex;gap:8px;align-items:center;">
           <input type="number" class="client-closing" data-client="${item}" value="${cd[item]?cd[item].closingDay:''}" placeholder="25" style="width:80px;" min="1" max="31">
           <span style="font-size:12px;color:var(--text3);">日締め</span>
           <button class="btn btn-sm btn-primary client-closing-save" data-client="${item}">保存</button>
         </div>
-      </div>
-    `).join('')||'<div class="loading">まだ登録がありません</div>'}
-  `;
+      </div>`).join('')||'<div class="loading">まだ登録がありません</div>'}`;
+}
+
+// 外注マスタ（常用単価）
+function buildSubsMaster(items){
+  const sm=state.subMaster;
+  return`
+    <div style="display:flex;gap:8px;margin-bottom:12px;">
+      <input type="text" id="master-new-val" placeholder="外注会社名" style="flex:1;">
+      <button class="btn btn-primary btn-sm" id="btn-master-add">追加</button>
+    </div>
+    <div style="font-size:11px;color:var(--text3);margin-bottom:10px;">常用単価を登録しておくと日報の外注費が自動計算されます</div>
+    ${items.map((item,i)=>`
+      <div class="card" style="margin-bottom:8px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+          <span style="flex:1;font-weight:600;">${item}</span>
+          <button class="btn-danger" data-master-del="${i}">削除</button>
+        </div>
+        <label>常用単価（円/人工）</label>
+        <div style="display:flex;gap:8px;">
+          <input type="number" class="sub-unit" data-sub="${item}" value="${sm[item]?sm[item].unitPrice:''}" placeholder="例: 15000" style="flex:1;">
+          <button class="btn btn-primary btn-sm sub-unit-save" data-sub="${item}">保存</button>
+        </div>
+        ${sm[item]?`<div style="font-size:12px;color:var(--green);margin-top:6px;">¥${fmt(sm[item].unitPrice)} / 人工</div>`:''}
+      </div>`).join('')||'<div class="loading">まだ登録がありません</div>'}`;
+}
+
+// 材料・消耗品マスタ（数量・単価付き）
+function buildMatConMaster(type,items){
+  const master=type==='mat'?state.matMaster:state.conMaster;
+  const label=type==='mat'?'材料名':'消耗品名';
+  return`
+    <div style="display:flex;gap:8px;margin-bottom:12px;">
+      <input type="text" id="master-new-val" placeholder="${label}を入力" style="flex:1;">
+      <button class="btn btn-primary btn-sm" id="btn-master-add">追加</button>
+    </div>
+    <div style="font-size:11px;color:var(--text3);margin-bottom:10px;">数量・単価を登録しておくと日報で品名を選んだとき自動入力されます</div>
+    ${items.map((item,i)=>{
+      const d=master[item]||{qty:'',price:''};
+      return`<div class="card" style="margin-bottom:8px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+          <span style="flex:1;font-weight:600;">${item}</span>
+          <button class="btn-danger" data-master-del="${i}">削除</button>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <div style="flex:1;">
+            <label>デフォルト数量</label>
+            <input type="number" class="${type}-master-qty" data-item="${item}" value="${d.qty||''}" placeholder="1">
+          </div>
+          <div style="flex:1;">
+            <label>デフォルト単価（円）</label>
+            <input type="number" class="${type}-master-price" data-item="${item}" value="${d.price||''}" placeholder="0">
+          </div>
+          <div style="display:flex;align-items:flex-end;">
+            <button class="btn btn-primary btn-sm ${type}-master-save" data-item="${item}">保存</button>
+          </div>
+        </div>
+        ${d.price?`<div style="font-size:12px;color:var(--text3);margin-top:6px;">${d.qty||1}個 × ¥${fmt(d.price)} = ¥${fmt((d.qty||1)*d.price)}</div>`:''}
+      </div>`;
+    }).join('')||'<div class="loading">まだ登録がありません</div>'}`;
+}
+
+// 高速区間マスタ
+function buildHighwaysMaster(){
+  const hwys=state.hwyMaster||[];
+  return`
+    <div style="font-size:11px;color:var(--text3);margin-bottom:10px;">よく使う高速区間を登録しておくと日報でワンタップで追加できます</div>
+    <div class="card" style="margin-bottom:12px;">
+      <div class="card-title">新規追加</div>
+      <label>乗るIC（from）</label>
+      <input type="text" id="hwy-new-from" placeholder="例: 守山IC">
+      <label>降りるIC（to）</label>
+      <input type="text" id="hwy-new-to" placeholder="例: 名古屋IC">
+      <label>片道料金（円）</label>
+      <input type="number" id="hwy-new-oneway" placeholder="0">
+      <label>往復料金（円）</label>
+      <input type="number" id="hwy-new-roundtrip" placeholder="0">
+      <button class="btn btn-primary" id="btn-hwy-add" style="width:100%;margin-top:12px;">追加</button>
+    </div>
+    ${hwys.map((h,i)=>`
+      <div class="card" style="margin-bottom:8px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="flex:1;font-weight:600;">${h.from} → ${h.to}</span>
+          <button class="btn-danger" data-hwy-del="${i}">削除</button>
+        </div>
+        <div style="display:flex;gap:16px;margin-top:8px;font-size:13px;">
+          <span style="color:var(--text2);">片道: <span style="color:var(--text);">¥${fmt(h.oneway||0)}</span></span>
+          <span style="color:var(--text2);">往復: <span style="color:var(--text);">¥${fmt(h.roundtrip||0)}</span></span>
+        </div>
+      </div>`).join('')||'<div class="loading">まだ登録がありません</div>'}`;
 }
 
 // ── SETTINGS ──
 function buildSettings(){
   const total=Object.keys(state.reports).length;
-  const dataStr=JSON.stringify({reports:state.reports,master:state.master,clients:state.clients,siteMaster:state.siteMaster,title:state.title});
+  const dataStr=JSON.stringify({reports:state.reports,master:state.master,clients:state.clients,siteMaster:state.siteMaster,subMaster:state.subMaster,matMaster:state.matMaster,conMaster:state.conMaster,hwyMaster:state.hwyMaster,title:state.title});
   const blob='data:application/json;charset=utf-8,'+encodeURIComponent(dataStr);
   return`
     <div class="card">
@@ -664,9 +764,8 @@ function buildSettings(){
       </div>
     </div>
     <div class="card" style="margin-top:12px;">
-      <div style="font-size:12px;color:var(--text3);">バージョン v4.0 ／ 株式会社技匠</div>
-    </div>
-  `;
+      <div style="font-size:12px;color:var(--text3);">バージョン v5.0 ／ 株式会社技匠</div>
+    </div>`;
 }
 
 function buildEditModal(){
@@ -689,7 +788,7 @@ function buildTitleModal(){
         <button class="modal-close" id="title-modal-close">✕</button>
       </div>
       <label>アプリタイトル</label>
-      <input class="title-input" id="title-input-val" value="${state.title}" placeholder="株式会社技匠 作業日報">
+      <input class="title-input" id="title-input-val" value="${state.title}">
       <div style="margin-top:14px;">
         <button class="btn btn-primary" id="btn-save-title" style="width:100%;">保存</button>
       </div>
@@ -700,13 +799,13 @@ function buildTitleModal(){
 // ===================== COLLECT FORM =====================
 function collectForm(){
   const workers=[];
-  document.querySelectorAll('[data-worker-idx]').forEach(row=>{
+  document.querySelectorAll('[data-w-idx]').forEach(row=>{
     const name=row.querySelector('.w-name')?.value||'';
     const count=row.querySelector('.w-count')?.value||'';
     if(name||count) workers.push({id:newId(),name,count});
   });
   const subs=[];
-  document.querySelectorAll('[data-sub-idx]').forEach(row=>{
+  document.querySelectorAll('[data-s-idx]').forEach(row=>{
     const name=row.querySelector('.s-name')?.value||'';
     const count=row.querySelector('.s-count')?.value||'';
     if(name||count) subs.push({id:newId(),name,count});
@@ -733,8 +832,7 @@ function collectForm(){
     address:document.getElementById('f-address')?.value||'',
     distance:document.getElementById('f-distance')?.value||'',
     client:document.getElementById('f-client')?.value||'',
-    workers,subs,
-    work:document.getElementById('f-work')?.value||'',
+    workers,subs,work:document.getElementById('f-work')?.value||'',
     materials,consumables,highways,parkings,
     note:document.getElementById('f-note')?.value||'',
   };
@@ -742,10 +840,7 @@ function collectForm(){
 
 // ===================== EVENTS =====================
 function attachEvents(){
-  // tabs
-  document.querySelectorAll('[data-tab]').forEach(btn=>{
-    btn.onclick=()=>{state.tab=btn.dataset.tab;render();};
-  });
+  document.querySelectorAll('[data-tab]').forEach(btn=>{btn.onclick=()=>{state.tab=btn.dataset.tab;render();};});
   // title
   document.getElementById('btn-edit-title')?.addEventListener('click',()=>{state.showTitleModal=true;render();});
   document.getElementById('title-modal-close')?.addEventListener('click',()=>{state.showTitleModal=false;render();});
@@ -755,15 +850,12 @@ function attachEvents(){
     if(val){state.title=val;saveTitle(val);state.showTitleModal=false;render();}
   });
   // month nav
-  const prevYm=()=>{const d=new Date(state.ym+'-01');d.setMonth(d.getMonth()-1);state.ym=ym(d);render();};
-  const nextYm=()=>{const d=new Date(state.ym+'-01');d.setMonth(d.getMonth()+1);state.ym=ym(d);render();};
-  document.getElementById('btn-prev-ym')?.addEventListener('click',prevYm);
-  document.getElementById('btn-next-ym')?.addEventListener('click',nextYm);
+  document.getElementById('btn-prev-ym')?.addEventListener('click',()=>{const d=new Date(state.ym+'-01');d.setMonth(d.getMonth()-1);state.ym=ym(d);render();});
+  document.getElementById('btn-next-ym')?.addEventListener('click',()=>{const d=new Date(state.ym+'-01');d.setMonth(d.getMonth()+1);state.ym=ym(d);render();});
   document.getElementById('btn-prev-ym-s')?.addEventListener('click',()=>{const d=new Date(state.reportFilterYm+'-01');d.setMonth(d.getMonth()-1);state.reportFilterYm=ym(d);render();});
   document.getElementById('btn-next-ym-s')?.addEventListener('click',()=>{const d=new Date(state.reportFilterYm+'-01');d.setMonth(d.getMonth()+1);state.reportFilterYm=ym(d);render();});
-  // 収支フィルター
   document.querySelectorAll('[data-filter]').forEach(btn=>{btn.onclick=()=>{state.reportFilter=btn.dataset.filter;render();};});
-  // 住所検索
+  // addr
   const addrInput=document.getElementById('f-address');
   const candidatesBox=document.getElementById('addr-candidates');
   if(addrInput&&candidatesBox){
@@ -782,23 +874,37 @@ function attachEvents(){
     });
     document.addEventListener('click',e=>{if(!addrInput.contains(e.target)&&!candidatesBox.contains(e.target)){candidatesBox.style.display='none';}});
   }
-  // Googleマップボタン
   document.getElementById('btn-map-open')?.addEventListener('click',()=>{
     const addr=document.getElementById('f-address')?.value||'';
     const site=document.getElementById('f-site')?.value||'';
     const q=encodeURIComponent(addr||site||'名古屋市');
     window.open(`https://www.google.com/maps/search/?api=1&query=${q}`,'_blank');
   });
-  // 現場名入力 → 請負金額を自動反映
-  document.getElementById('f-site')?.addEventListener('change',()=>{render();});
-
+  // 高速プリセットボタン
+  document.querySelectorAll('.hwy-preset-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const label=btn.dataset.label;
+      const oneway=parseFloat(btn.dataset.oneway)||0;
+      const roundtrip=parseFloat(btn.dataset.roundtrip)||0;
+      // 片道/往復を選択するダイアログ
+      const choice=roundtrip>0?confirm(`${label}\n\nOK → 往復 ¥${fmt(roundtrip)}\nキャンセル → 片道 ¥${fmt(oneway)}`):false;
+      const price=choice?roundtrip:oneway;
+      const name=choice?`${label}（往復）`:`${label}（片道）`;
+      // 高速代テーブルに追加
+      const tbody=document.getElementById('highways-body');
+      const idx=tbody.querySelectorAll('tr').length;
+      const tr=document.createElement('tr');
+      tr.setAttribute('data-hwy-idx',idx);
+      tr.innerHTML=buildTransRow('hwy',{name,price},idx);
+      tbody.appendChild(tr);
+      updateTotal('highways-body','hwy-total','hwy');
+    });
+  });
   // save form
   document.getElementById('btn-save-form')?.addEventListener('click',function(){
     const id=this.dataset.id;
-    const data=collectForm();
-    data.id=id;
-    state.reports[id]=data;
-    saveReports(state.reports);
+    const data=collectForm();data.id=id;
+    state.reports[id]=data;saveReports(state.reports);
     const m=state.master;
     if(data.site&&!m.sites.includes(data.site)) m.sites.push(data.site);
     if(data.client&&!m.clients.includes(data.client)) m.clients.push(data.client);
@@ -809,107 +915,71 @@ function attachEvents(){
   });
   document.getElementById('btn-delete-form')?.addEventListener('click',function(){
     if(confirm('この日報を削除しますか？')){
-      delete state.reports[this.dataset.id];
-      saveReports(state.reports);
+      delete state.reports[this.dataset.id];saveReports(state.reports);
       state.editingId=null;state.tab='reports';render();
     }
   });
-  // add worker/sub
+  // add rows
   document.getElementById('btn-add-worker')?.addEventListener('click',()=>{
     const wrap=document.getElementById('workers-wrap');
-    const idx=wrap.querySelectorAll('[data-worker-idx]').length;
-    const div=document.createElement('div');
-    div.style.cssText='display:flex;gap:8px;align-items:center;margin-bottom:6px;';
-    div.setAttribute('data-worker-idx',idx);
-    div.innerHTML=`<input type="text" class="w-name" placeholder="作業員名" list="list-workers" style="flex:1;padding:9px 12px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-size:14px;outline:none;"><input type="number" class="w-count" placeholder="人数" style="width:70px;padding:9px 12px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-size:14px;outline:none;"><button class="btn-danger" onclick="removeWorker(${idx})">✕</button>`;
-    wrap.appendChild(div);
+    const idx=wrap.querySelectorAll('[data-w-idx]').length;
+    const div=document.createElement('div');div.setAttribute('data-w-idx',idx);
+    div.innerHTML=buildPersonRow('worker',{name:'',count:''},idx);wrap.appendChild(div);
   });
   document.getElementById('btn-add-sub')?.addEventListener('click',()=>{
     const wrap=document.getElementById('subs-wrap');
-    const idx=wrap.querySelectorAll('[data-sub-idx]').length;
-    const div=document.createElement('div');
-    div.style.cssText='display:flex;gap:8px;align-items:center;margin-bottom:6px;';
-    div.setAttribute('data-sub-idx',idx);
-    div.innerHTML=`<input type="text" class="s-name" placeholder="外注会社名" list="list-subs" style="flex:1;padding:9px 12px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-size:14px;outline:none;"><input type="number" class="s-count" placeholder="人数" style="width:70px;padding:9px 12px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-size:14px;outline:none;"><button class="btn-danger" onclick="removeSub(${idx})">✕</button>`;
-    wrap.appendChild(div);
+    const idx=wrap.querySelectorAll('[data-s-idx]').length;
+    const div=document.createElement('div');div.setAttribute('data-s-idx',idx);
+    div.innerHTML=buildSubRow({name:'',count:''},idx);wrap.appendChild(div);
   });
-  // add detail rows (材料・消耗品)
-  const addDetailRow=(bodyId,type)=>{
+  const addDRow=(bodyId,type)=>{
     const tbody=document.getElementById(bodyId);
     const idx=tbody.querySelectorAll('tr').length;
-    const tr=document.createElement('tr');
-    tr.setAttribute(`data-${type}-idx`,idx);
-    tr.innerHTML=buildDetailRow(type,newRow(),idx);
-    tbody.appendChild(tr);
+    const tr=document.createElement('tr');tr.setAttribute(`data-${type}-idx`,idx);
+    tr.innerHTML=buildDetailRow(type,newRow(),idx);tbody.appendChild(tr);
   };
-  document.getElementById('btn-add-mat')?.addEventListener('click',()=>addDetailRow('materials-body','mat'));
-  document.getElementById('btn-add-con')?.addEventListener('click',()=>addDetailRow('consumables-body','con'));
-  // add trans rows (高速・駐車場)
-  const addTransRow=(bodyId,type)=>{
+  document.getElementById('btn-add-mat')?.addEventListener('click',()=>addDRow('materials-body','mat'));
+  document.getElementById('btn-add-con')?.addEventListener('click',()=>addDRow('consumables-body','con'));
+  const addTRow=(bodyId,type)=>{
     const tbody=document.getElementById(bodyId);
     const idx=tbody.querySelectorAll('tr').length;
-    const tr=document.createElement('tr');
-    tr.setAttribute(`data-${type}-idx`,idx);
-    tr.innerHTML=buildTransRow(type,newTRow(),idx);
-    tbody.appendChild(tr);
+    const tr=document.createElement('tr');tr.setAttribute(`data-${type}-idx`,idx);
+    tr.innerHTML=buildTransRow(type,newTRow(),idx);tbody.appendChild(tr);
   };
-  document.getElementById('btn-add-hwy')?.addEventListener('click',()=>addTransRow('highways-body','hwy'));
-  document.getElementById('btn-add-pkg')?.addEventListener('click',()=>addTransRow('parkings-body','pkg'));
-  // real-time totals
-  const bindTotal=(bodyId,totalId,type,calcFn)=>{
-    document.getElementById(bodyId)?.addEventListener('input',()=>{
-      const rows=[];
-      document.querySelectorAll(`[data-${type}-idx]`).forEach(r=>{
-        if(calcFn==='detail') rows.push({qty:r.querySelector(`.${type}-qty`)?.value||'0',price:r.querySelector(`.${type}-price`)?.value||'0'});
-        else rows.push({price:r.querySelector(`.${type}-price`)?.value||'0'});
-      });
-      const el=document.getElementById(totalId);
-      if(el) el.textContent='合計: ¥'+fmt(calcFn==='detail'?calcRows(rows):calcTRows(rows));
-    });
-  };
-  bindTotal('materials-body','mat-total','mat','detail');
-  bindTotal('consumables-body','con-total','con','detail');
-  bindTotal('highways-body','hwy-total','hwy','trans');
-  bindTotal('parkings-body','pkg-total','pkg','trans');
-  // report items
-  document.querySelectorAll('[data-edit-id]').forEach(el=>{
-    el.addEventListener('click',()=>{state.editingId=el.dataset.editId;state.tab='reports';render();});
+  document.getElementById('btn-add-hwy')?.addEventListener('click',()=>addTRow('highways-body','hwy'));
+  document.getElementById('btn-add-pkg')?.addEventListener('click',()=>addTRow('parkings-body','pkg'));
+  // totals
+  ['mat','con'].forEach(t=>{
+    document.getElementById(t==='mat'?'materials-body':'consumables-body')?.addEventListener('input',()=>updateTotal(t==='mat'?'materials-body':'consumables-body',t==='mat'?'mat-total':'con-total',t));
   });
-  // modal close
+  ['hwy','pkg'].forEach(t=>{
+    document.getElementById(t==='hwy'?'highways-body':'parkings-body')?.addEventListener('input',()=>updateTotal(t==='hwy'?'highways-body':'parkings-body',t==='hwy'?'hwy-total':'pkg-total',t));
+  });
+  // edit
+  document.querySelectorAll('[data-edit-id]').forEach(el=>{el.addEventListener('click',()=>{state.editingId=el.dataset.editId;state.tab='reports';render();});});
   document.getElementById('modal-close')?.addEventListener('click',()=>{state.editingId=null;render();});
   document.getElementById('modal-overlay')?.addEventListener('click',e=>{if(e.target.id==='modal-overlay'){state.editingId=null;render();}});
   // master tabs
   document.querySelectorAll('[data-master-tab]').forEach(btn=>{btn.onclick=()=>{state.showMasterTab=btn.dataset.masterTab;render();};});
   document.getElementById('btn-master-add')?.addEventListener('click',()=>{
-    const val=document.getElementById('master-new-val')?.value.trim();
-    if(!val) return;
+    const val=document.getElementById('master-new-val')?.value.trim();if(!val) return;
     const t=state.showMasterTab;
     if(!state.master[t]) state.master[t]=[];
     if(!state.master[t].includes(val)) state.master[t].push(val);
-    saveMaster(state.master);
-    render();
+    saveMaster(state.master);render();
   });
   document.querySelectorAll('[data-master-del]').forEach(btn=>{
-    btn.onclick=()=>{
-      const i=parseInt(btn.dataset.masterDel);
-      state.master[state.showMasterTab].splice(i,1);
-      saveMaster(state.master);
-      render();
-    };
+    btn.onclick=()=>{const i=parseInt(btn.dataset.masterDel);state.master[state.showMasterTab].splice(i,1);saveMaster(state.master);render();};
   });
-  // 請負金額保存
+  // 現場請負金額保存
   document.querySelectorAll('.site-contract-save').forEach(btn=>{
     btn.onclick=()=>{
       const site=btn.dataset.site;
-      const input=document.querySelector(`.site-contract[data-site="${site}"]`);
-      const amount=parseFloat(input?.value)||0;
+      const amount=parseFloat(document.querySelector(`.site-contract[data-site="${site}"]`)?.value)||0;
       if(!state.siteMaster[site]) state.siteMaster[site]={adjustments:[]};
-      state.siteMaster[site].contractAmount=amount;
-      saveSiteMaster(state.siteMaster);
-      render();
+      state.siteMaster[site].contractAmount=amount;saveSiteMaster(state.siteMaster);render();
     };
   });
-  // 調整保存
   document.querySelectorAll('.site-adj-save').forEach(btn=>{
     btn.onclick=()=>{
       const site=btn.dataset.site;
@@ -920,22 +990,53 @@ function attachEvents(){
         const amount=document.querySelector(`.adj-amount[data-site="${site}"][data-ai="${ai}"]`)?.value||'';
         adjs.push({type:sel.value,label,amount});
       });
-      state.siteMaster[site].adjustments=adjs;
-      saveSiteMaster(state.siteMaster);
-      render();
+      state.siteMaster[site].adjustments=adjs;saveSiteMaster(state.siteMaster);render();
     };
+  });
+  // 外注常用単価保存
+  document.querySelectorAll('.sub-unit-save').forEach(btn=>{
+    btn.onclick=()=>{
+      const sub=btn.dataset.sub;
+      const price=parseFloat(document.querySelector(`.sub-unit[data-sub="${sub}"]`)?.value)||0;
+      if(!state.subMaster[sub]) state.subMaster[sub]={};
+      state.subMaster[sub].unitPrice=price;saveSubMaster(state.subMaster);render();
+    };
+  });
+  // 材料・消耗品マスタ保存
+  ['mat','con'].forEach(type=>{
+    document.querySelectorAll(`.${type}-master-save`).forEach(btn=>{
+      btn.onclick=()=>{
+        const item=btn.dataset.item;
+        const qty=parseFloat(document.querySelector(`.${type}-master-qty[data-item="${item}"]`)?.value)||0;
+        const price=parseFloat(document.querySelector(`.${type}-master-price[data-item="${item}"]`)?.value)||0;
+        const master=type==='mat'?state.matMaster:state.conMaster;
+        master[item]={qty,price};
+        type==='mat'?saveMatMaster(state.matMaster):saveConMaster(state.conMaster);
+        render();
+      };
+    });
+  });
+  // 高速区間追加
+  document.getElementById('btn-hwy-add')?.addEventListener('click',()=>{
+    const from=document.getElementById('hwy-new-from')?.value.trim();
+    const to=document.getElementById('hwy-new-to')?.value.trim();
+    const oneway=parseFloat(document.getElementById('hwy-new-oneway')?.value)||0;
+    const roundtrip=parseFloat(document.getElementById('hwy-new-roundtrip')?.value)||0;
+    if(!from||!to){alert('乗るICと降りるICを入力してください');return;}
+    state.hwyMaster.push({id:newId(),from,to,oneway,roundtrip});
+    saveHwyMaster(state.hwyMaster);render();
+  });
+  document.querySelectorAll('[data-hwy-del]').forEach(btn=>{
+    btn.onclick=()=>{state.hwyMaster.splice(parseInt(btn.dataset.hwyDel),1);saveHwyMaster(state.hwyMaster);render();};
   });
   // 元請け締め日保存
   document.querySelectorAll('.client-closing-save').forEach(btn=>{
     btn.onclick=()=>{
       const name=btn.dataset.client;
-      const input=document.querySelector(`.client-closing[data-client="${name}"]`);
-      const day=parseInt(input?.value)||0;
+      const day=parseInt(document.querySelector(`.client-closing[data-client="${name}"]`)?.value)||0;
       if(day<1||day>31){alert('1〜31の数字を入力してください');return;}
       if(!state.clients[name]) state.clients[name]={};
-      state.clients[name].closingDay=day;
-      saveClients(state.clients);
-      alert(`${name} の締め日を${day}日に設定しました`);
+      state.clients[name].closingDay=day;saveClients(state.clients);alert(`${name}の締め日を${day}日に設定しました`);
     };
   });
   // settings
@@ -950,6 +1051,10 @@ function attachEvents(){
         if(d.master){state.master=d.master;saveMaster(d.master);}
         if(d.clients){state.clients=d.clients;saveClients(d.clients);}
         if(d.siteMaster){state.siteMaster=d.siteMaster;saveSiteMaster(d.siteMaster);}
+        if(d.subMaster){state.subMaster=d.subMaster;saveSubMaster(d.subMaster);}
+        if(d.matMaster){state.matMaster=d.matMaster;saveMatMaster(d.matMaster);}
+        if(d.conMaster){state.conMaster=d.conMaster;saveConMaster(d.conMaster);}
+        if(d.hwyMaster){state.hwyMaster=d.hwyMaster;saveHwyMaster(d.hwyMaster);}
         if(d.title){state.title=d.title;saveTitle(d.title);}
         alert('取り込み完了しました');render();
       }catch{alert('ファイルの読み込みに失敗しました');}
@@ -957,25 +1062,69 @@ function attachEvents(){
     reader.readAsText(file);
   });
   document.getElementById('btn-clear-all')?.addEventListener('click',()=>{
-    if(confirm('全データを削除します。本当によろしいですか？')){
-      state.reports={};saveReports({});alert('削除しました');render();
-    }
+    if(confirm('全データを削除します。本当によろしいですか？')){state.reports={};saveReports({});alert('削除しました');render();}
   });
 }
 
+// ===================== HELPERS =====================
+function updateTotal(bodyId,totalId,type){
+  const isDetail=type==='mat'||type==='con';
+  let total=0;
+  if(isDetail){
+    document.querySelectorAll(`[data-${type}-idx]`).forEach(r=>{
+      total+=(parseFloat(r.querySelector(`.${type}-qty`)?.value)||0)*(parseFloat(r.querySelector(`.${type}-price`)?.value)||0);
+    });
+  } else {
+    document.querySelectorAll(`[data-${type}-idx]`).forEach(r=>{
+      total+=parseFloat(r.querySelector(`.${type}-price`)?.value)||0;
+    });
+  }
+  const el=document.getElementById(totalId);
+  if(el) el.textContent='合計: ¥'+fmt(total);
+}
+
 // ===================== GLOBAL =====================
-window.removeWorker=idx=>document.querySelector(`[data-worker-idx="${idx}"]`)?.remove();
-window.removeSub=idx=>document.querySelector(`[data-sub-idx="${idx}"]`)?.remove();
+window.removeWorker=idx=>document.querySelector(`[data-w-idx="${idx}"]`)?.remove();
+window.removeSub=idx=>document.querySelector(`[data-s-idx="${idx}"]`)?.remove();
 window.removeDetailRow=(type,idx)=>document.querySelector(`[data-${type}-idx="${idx}"]`)?.remove();
 window.removeTransRow=(type,idx)=>document.querySelector(`[data-${type}-idx="${idx}"]`)?.remove();
-window.addAdj=(site)=>{
+window.addAdj=site=>{
   if(!state.siteMaster[site]) state.siteMaster[site]={contractAmount:0,adjustments:[]};
   state.siteMaster[site].adjustments.push({type:'add',label:'',amount:''});
   saveSiteMaster(state.siteMaster);render();
 };
 window.removeAdj=(site,ai)=>{
-  state.siteMaster[site].adjustments.splice(ai,1);
-  saveSiteMaster(state.siteMaster);render();
+  state.siteMaster[site].adjustments.splice(ai,1);saveSiteMaster(state.siteMaster);render();
+};
+// 品名入力でマスタのデフォルト値を自動入力
+window.fillMasterDefaults=(type,idx,name)=>{
+  const master=type==='mat'?state.matMaster:state.conMaster;
+  const d=master[name];if(!d) return;
+  const row=document.querySelector(`[data-${type}-idx="${idx}"]`);if(!row) return;
+  const qtyEl=row.querySelector(`.${type}-qty`);
+  const priceEl=row.querySelector(`.${type}-price`);
+  if(qtyEl&&d.qty) qtyEl.value=d.qty;
+  if(priceEl&&d.price) priceEl.value=d.price;
+  updateTotal(type==='mat'?'materials-body':'consumables-body',type==='mat'?'mat-total':'con-total',type);
+};
+// 外注行の単価表示更新
+window.refreshSubRow=(idx,rowEl)=>{
+  if(!rowEl) return;
+  const name=rowEl.querySelector('.s-name')?.value||'';
+  const count=parseFloat(rowEl.querySelector('.s-count')?.value)||0;
+  const sm=state.subMaster[name]||{};
+  const info=rowEl.querySelector(`.s-info-${idx}`);
+  if(!info) return;
+  if(sm.unitPrice){
+    const total=sm.unitPrice*count;
+    info.textContent=`単価: ¥${fmt(sm.unitPrice)}/人工${count?' / 小計: ¥'+fmt(total):''}`;
+    info.style.color='var(--green)';
+  } else if(name){
+    info.textContent='（マスタに単価未登録）';
+    info.style.color='var(--text3)';
+  } else {
+    info.textContent='';
+  }
 };
 
 render();
